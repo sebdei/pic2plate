@@ -26,14 +26,14 @@ export default defineComponent({
         const reader = new FileReader();
 
         reader.readAsDataURL(image);
-        reader.onload = e => {
+        reader.onload = (e) => {
           const imageDataUrl = e.target.result;
           this.$emit("change", imageDataUrl);
         };
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>

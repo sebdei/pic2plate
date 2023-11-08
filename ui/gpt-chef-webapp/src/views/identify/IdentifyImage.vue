@@ -34,29 +34,28 @@
   </div>
 </template>
 
-<script>
-import { SUGGEST_RECIPE_URL } from '@/urls'
-import api from '@/service/api'
+<script lang="ts">
+import { SUGGEST_RECIPE_URL } from "@/urls";
+import api from "@/service/api";
 
-import { Cropper } from 'vue-advanced-cropper'
-import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
+import { Cropper } from "vue-advanced-cropper";
+import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
 
-import 'vue-advanced-cropper/dist/style.css'
+import "vue-advanced-cropper/dist/style.css";
 import { defineComponent } from "vue";
-
 
 export default defineComponent({
   components: {
     Cropper,
-    ImageDataUrlLoader
+    ImageDataUrlLoader,
   },
-  data () {
+  data() {
     return {
       imageDataUrl: null,
       isFetching: false,
       showIdentifyButton: false,
-      responseText: null
-    }
+      responseText: null,
+    };
   },
   methods: {
     sendCroppedImage: async function () {
@@ -71,8 +70,8 @@ export default defineComponent({
 
       // const data = { image_data_url: croppedImageDataUrl }
 
-      const { text } = await api.post(SUGGEST_RECIPE_URL)
-      console.log(text)
+      const { text } = await api.post(SUGGEST_RECIPE_URL);
+      console.log(text);
 
       // this.isFetching = false
       // this.responseText = text
@@ -80,13 +79,13 @@ export default defineComponent({
       // audio.src = url
       // audio.play()
     },
-    setImageDataUrl: function (imageDataUrl) {
-      this.showIdentifyButton = true
-      this.responseText = null
-      this.imageDataUrl = imageDataUrl
-    }
-  }
-}
+    setImageDataUrl: function (imageDataUrl: string) {
+      this.showIdentifyButton = true;
+      this.responseText = null;
+      this.imageDataUrl = imageDataUrl as any;
+    },
+  },
+});
 </script>
 
 <style scoped>

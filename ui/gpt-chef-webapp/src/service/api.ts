@@ -1,10 +1,10 @@
-function formatQuery(queryParams: Record<string, any>) {
+function formatQuery(queryParams?: Record<string, any>) {
   return (
     (queryParams &&
       Object.keys(queryParams).length &&
       "?" +
         Object.keys(queryParams)
-          .map(key =>
+          .map((key) =>
             queryParams[key]
               ? `${key}=${encodeURIComponent(queryParams[key])}`
               : key
@@ -16,8 +16,8 @@ function formatQuery(queryParams: Record<string, any>) {
 
 export async function post(
   url: string,
-  data: any,
-  queryParams: Record<string, any>
+  data?: any,
+  queryParams?: Record<string, any>
 ) {
   const query = formatQuery(queryParams);
 
