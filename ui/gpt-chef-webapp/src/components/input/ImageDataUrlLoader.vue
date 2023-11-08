@@ -13,13 +13,13 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
   emits: ["change"],
   methods: {
-    uploadImage: function (e) {
+    uploadImage: function (e: any) {
       const image = e.target.files[0];
 
       if (image) {
@@ -27,7 +27,7 @@ export default defineComponent({
 
         reader.readAsDataURL(image);
         reader.onload = (e) => {
-          const imageDataUrl = e.target.result;
+          const imageDataUrl = e.target?.result;
           this.$emit("change", imageDataUrl);
         };
       }
