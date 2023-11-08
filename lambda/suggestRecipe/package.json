@@ -4,9 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "serve": "cd .. && sam local start-api --host 0.0.0.0 --env-vars .env.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.126",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "openai": "^4.16.2"
+  }
 }
