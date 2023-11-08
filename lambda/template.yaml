@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   local-test
@@ -22,7 +22,7 @@ Resources:
       Runtime: nodejs18.x
       Environment:
         Variables:
-          OPEN_AI_API_KEY: OPEN_AI_API_KEY
+          OPENAI_API_KEY: OPENAI_API_KEY
       Events:
         Api:
           Type: Api

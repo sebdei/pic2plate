@@ -22,7 +22,7 @@
       </div>
 
       <div v-if="responseText" class="mt-3">
-        <p>{{ responseText }}</p>
+        <p class="white-space-preline">{{ responseText }}</p>
       </div>
     </div>
   </div>
@@ -57,7 +57,6 @@ export default defineComponent({
       const data = { image_data_url: this.imageDataUrl };
 
       const { text } = await api.post(SUGGEST_RECIPE_URL, data);
-      console.log(text);
 
       this.isFetching = false;
       this.responseText = text;
@@ -81,5 +80,9 @@ export default defineComponent({
 :deep(.vue-advanced-cropper__foreground),
 :deep(.vue-advanced-cropper__image-wrapper) {
   border-radius: 0.25rem !important;
+}
+
+.white-space-preline {
+  white-space: pre-line;
 }
 </style>
