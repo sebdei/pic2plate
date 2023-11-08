@@ -7,7 +7,9 @@
     </div>
 
     <div v-if="imageDataUrl !== ''">
-      <img :src="imageDataUrl" class="mb-3" />
+      <div class="image">
+        <img :src="imageDataUrl" class="mb-3 mw-100" />
+      </div>
 
       <button
         v-if="showIdentifyButton"
@@ -76,10 +78,7 @@ export default defineComponent({
   height: 120px;
 }
 
-:deep(.vue-advanced-cropper__background),
-:deep(.vue-advanced-cropper__cropper-wrapper),
-:deep(.vue-advanced-cropper__foreground),
-:deep(.vue-advanced-cropper__image-wrapper) {
-  border-radius: 0.25rem !important;
+.image img {
+  height: 300px;
 }
 </style>
