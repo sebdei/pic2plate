@@ -6,21 +6,15 @@
       <ImageDataUrlLoader @change="setImageDataUrl" />
     </div>
 
-    <div v-if="imageDataUrl">
-      <Cropper
-        v-if="imageDataUrl"
-        ref="cropper"
-        :src="imageDataUrl"
-        :stencil-props="{ aspectRatio: 12 / 12 }"
-        class="cropper mb-3"
-      />
+    <div v-if="imageDataUrl !== ''">
+      <img :src="imageDataUrl" class="mb-3" />
 
       <button
         v-if="showIdentifyButton"
-        @click="sendCroppedImage"
+        @click="sendImage"
         class="btn btn-secondary btn-lg btn-block"
       >
-        Identifizieren
+        Gimme your recipe!!
       </button>
 
       <div v-else-if="isFetching" class="spinner-border" role="status">
@@ -35,54 +29,43 @@
 </template>
 
 <script lang="ts">
+import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
-import api from "@/service/api";
 
-import { Cropper } from "vue-advanced-cropper";
 import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
 
-import "vue-advanced-cropper/dist/style.css";
 import { defineComponent } from "vue";
+import "vue-advanced-cropper/dist/style.css";
 
 export default defineComponent({
   components: {
-    Cropper,
     ImageDataUrlLoader,
   },
   data() {
     return {
-      imageDataUrl: null,
+      imageDataUrl: "",
       isFetching: false,
       showIdentifyButton: false,
       responseText: null,
     };
   },
   methods: {
-    sendCroppedImage: async function () {
-      // const audio = new Audio()
-      // audio.crossOrigin = 'anonymous'
+    sendImage: async function () {
+      this.showIdentifyButton = false;
+      this.isFetching = true;
 
-      // this.showIdentifyButton = false
-      // this.isFetching = true
+      const data = { image_data_url: this.imageDataUrl };
 
-      // const { canvas } = this.$refs.cropper.getResult();
-      // const croppedImageDataUrl = canvas.toDataURL('image/jpeg')
-
-      // const data = { image_data_url: croppedImageDataUrl }
-
-      const { text } = await api.post(SUGGEST_RECIPE_URL);
+      const { text } = await api.post(SUGGEST_RECIPE_URL, data);
       console.log(text);
 
-      // this.isFetching = false
-      // this.responseText = text
-
-      // audio.src = url
-      // audio.play()
+      this.isFetching = false;
+      this.responseText = text;
     },
     setImageDataUrl: function (imageDataUrl: string) {
       this.showIdentifyButton = true;
       this.responseText = null;
-      this.imageDataUrl = imageDataUrl as any;
+      this.imageDataUrl = imageDataUrl;
     },
   },
 });

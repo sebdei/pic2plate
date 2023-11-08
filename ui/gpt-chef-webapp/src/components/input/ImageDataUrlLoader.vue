@@ -19,8 +19,8 @@ import { defineComponent } from "vue";
 export default defineComponent({
   emits: ["change"],
   methods: {
-    uploadImage: function (e: any) {
-      const image = e.target.files[0];
+    uploadImage: function (e: Event) {
+      const image = (e.target as HTMLInputElement)?.files?.[0];
 
       if (image) {
         const reader = new FileReader();

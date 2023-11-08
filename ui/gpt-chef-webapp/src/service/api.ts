@@ -1,4 +1,4 @@
-function formatQuery(queryParams?: Record<string, any>) {
+function formatQuery(queryParams?: Record<string, string | number>) {
   return (
     (queryParams &&
       Object.keys(queryParams).length &&
@@ -16,8 +16,8 @@ function formatQuery(queryParams?: Record<string, any>) {
 
 export async function post(
   url: string,
-  data?: any,
-  queryParams?: Record<string, any>
+  data: Record<string, string | number>,
+  queryParams?: Record<string, string | number>
 ) {
   const query = formatQuery(queryParams);
 
@@ -31,5 +31,3 @@ export async function post(
 
   return response?.json();
 }
-
-export default { post };
