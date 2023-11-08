@@ -4,7 +4,7 @@ import IdentifyImage from '@/views/identify/IdentifyImage.vue'
 
 const routes = [
   { path: '/', redirect: { name: 'identify' } },
-  { path: '/identify', name: 'identify', component: IdentifyImage }
+  { path: '/suggest_recipe', name: 'identify', component: IdentifyImage }
 ]
 
 const router = createRouter({

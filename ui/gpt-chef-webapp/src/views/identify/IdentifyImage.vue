@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import { IDENTIFY_IMAGE_URL } from '@/urls'
+import { SUGGEST_RECIPE_URL } from '@/urls'
 import api from '@/service/api'
 
 import { Cropper } from 'vue-advanced-cropper'
@@ -63,23 +63,25 @@ export default {
   },
   methods: {
     sendCroppedImage: async function () {
-      const audio = new Audio()
-      audio.crossOrigin = 'anonymous'
+      // const audio = new Audio()
+      // audio.crossOrigin = 'anonymous'
 
-      this.showIdentifyButton = false
-      this.isFetching = true
+      // this.showIdentifyButton = false
+      // this.isFetching = true
 
-      const { canvas } = this.$refs.cropper.getResult();
-      const croppedImageDataUrl = canvas.toDataURL('image/jpeg')
+      // const { canvas } = this.$refs.cropper.getResult();
+      // const croppedImageDataUrl = canvas.toDataURL('image/jpeg')
 
-      const data = { image_data_url: croppedImageDataUrl }
-      const { text, url } = await api.post(IDENTIFY_IMAGE_URL, data)
+      // const data = { image_data_url: croppedImageDataUrl }
 
-      this.isFetching = false
-      this.responseText = text
+      const { text } = await api.post(SUGGEST_RECIPE_URL)
+      console.log(text)
 
-      audio.src = url
-      audio.play()
+      // this.isFetching = false
+      // this.responseText = text
+
+      // audio.src = url
+      // audio.play()
     },
     setImageDataUrl: function (imageDataUrl) {
       this.showIdentifyButton = true
