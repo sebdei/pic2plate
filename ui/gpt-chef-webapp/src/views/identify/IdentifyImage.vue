@@ -1,6 +1,8 @@
 <template>
   <div class="container">
-    <div class="d-flex align-items-center justify-content-around image-selection">
+    <div
+      class="d-flex align-items-center justify-content-around image-selection"
+    >
       <ImageDataUrlLoader @change="setImageDataUrl" />
     </div>
 
@@ -9,7 +11,7 @@
         v-if="imageDataUrl"
         ref="cropper"
         :src="imageDataUrl"
-        :stencil-props="{ aspectRatio: 12/12 }"
+        :stencil-props="{ aspectRatio: 12 / 12 }"
         class="cropper mb-3"
       />
 
@@ -17,22 +19,15 @@
         v-if="showIdentifyButton"
         @click="sendCroppedImage"
         class="btn btn-secondary btn-lg btn-block"
-        >
-          Identifizieren
+      >
+        Identifizieren
       </button>
 
-      <div
-        v-else-if="isFetching"
-        class="spinner-border"
-        role="status"
-      >
+      <div v-else-if="isFetching" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
 
-      <div
-        v-if="responseText"
-        class="mt-3"
-      >
+      <div v-if="responseText" class="mt-3">
         <p>{{ responseText }}</p>
       </div>
     </div>
@@ -47,8 +42,10 @@ import { Cropper } from 'vue-advanced-cropper'
 import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
 
 import 'vue-advanced-cropper/dist/style.css'
+import { defineComponent } from "vue";
 
-export default {
+
+export default defineComponent({
   components: {
     Cropper,
     ImageDataUrlLoader
@@ -101,6 +98,6 @@ export default {
 :deep(.vue-advanced-cropper__cropper-wrapper),
 :deep(.vue-advanced-cropper__foreground),
 :deep(.vue-advanced-cropper__image-wrapper) {
-  border-radius: .25rem!important;
+  border-radius: 0.25rem !important;
 }
 </style>
