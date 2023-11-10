@@ -3,8 +3,8 @@ import OpenAI from "openai";
 const openai = new OpenAI();
 
 export const handler = async (event, context) => {
-  const body = event?.body && JSON.parse(event.body);
-  const imageDataUrl = body?.image_data_url;
+  const jsonBody = event?.body && JSON.parse(event.body);
+  const imageDataUrl = jsonBody?.image_data_url;
 
   if (!imageDataUrl) {
     return {

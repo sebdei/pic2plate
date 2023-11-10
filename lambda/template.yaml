@@ -14,10 +14,10 @@ Globals:
       AllowOrigin: "'*'"
 
 Resources:
-  TextForImage:
+  SuggestRecipe:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: suggestRecipe/
+      CodeUri: suggest-recipe/
       Handler: index.handler
       Runtime: nodejs18.x
       Environment:
