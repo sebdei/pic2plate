@@ -38,10 +38,6 @@ function corsHeaders(event) {
   };
 }
 
-async function getBlobImage(imageDataUrl) {
-  return await (await fetch(imageDataUrl))?.blob();
-}
-
 async function getGptRecipe(imageDataUrl) {
   const prompt = `
     You are going to write a JSON to answer the following question:
@@ -86,25 +82,4 @@ async function getGptRecipe(imageDataUrl) {
   });
 
   return completion?.choices?.[0]?.message?.content;
-}
-
-function getMockText() {
-  return `Es sieht so aus, als hätten Sie einige gute Zutaten, um eine cremige Pilzpfanne mit Schafskäse zu kreieren. Hier ist ein einfaches Rezept, das Sie mit diesen Zutaten machen können:
-
-  **Cremige Pilzpfanne mit Schafskäse**
-
-  Zutaten:
-  - Eine Packung frische Champignons (400g)
-  - 200g Speisequark
-  - Creme Fraiche (nach Belieben, z.B. 200ml)
-  - Hirtenkäse (nach Belieben)
-  - Salz und Pfeffer (nach Geschmack)
-  - Optional: Knoblauch, Zwiebeln, Kräuter (falls vorhanden)
-
-  Anleitung:
-  1. Die Champignons säubern und in Scheiben oder Stücke schneiden.
-  2. Falls Sie Zwiebeln oder Knoblauch haben, diese fein hacken und in einer Pfanne mit etwas Öl oder Butter glasig anbraten.
-  3. Fügen Sie die geschnittenen Champignons hinzu und braten Sie diese an, bis sie Farbe annehmen und das Wasser verloren haben.
-  4. Reduzieren Sie die Hitze und fügen Sie den Speisequark und die Creme Fraiche hinzu. Umrühren, bis eine gleichmäßige Sauce entsteht.
-  5`;
 }
