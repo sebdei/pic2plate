@@ -14,7 +14,6 @@ export const handler = async (event, context) => {
   }
 
   const text = await getGptRecipe(imageDataUrl);
-  // const text = getMockText();
   console.log(text);
 
   const resp = { text };
