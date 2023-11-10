@@ -13,7 +13,7 @@ export const handler = async (event, context) => {
     };
   }
 
-  const text = await openAiChatCompletion(imageDataUrl);
+  const text = await getGptRecipe(imageDataUrl);
   // const text = getMockText();
   console.log(text);
 
@@ -42,7 +42,7 @@ async function getBlobImage(imageDataUrl) {
   return await (await fetch(imageDataUrl))?.blob();
 }
 
-async function openAiChatCompletion(imageDataUrl) {
+async function getGptRecipe(imageDataUrl) {
   const prompt = `
     You are going to write a JSON to answer the following question:
     "Ich benötige ein leckeres Rezept mit den Zutaten, die auf dem Foto zu sehen sind."
@@ -84,8 +84,6 @@ async function openAiChatCompletion(imageDataUrl) {
     model: "gpt-4-vision-preview",
     max_tokens: 300,
   });
-
-  console.log(JSON.stringify(completion));
 
   return completion?.choices?.[0]?.message?.content;
 }
