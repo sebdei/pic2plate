@@ -10,6 +10,9 @@
 <script lang="ts">
 import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
+import { computed } from "vue";
+
+import { recipeStore } from "@/stores/recipeStore";
 
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
@@ -18,10 +21,12 @@ export default defineComponent({
   components: {},
   props: {
     image: String,
-    recipe: Object,
   },
   data() {
     return {};
+  },
+  computed: {
+    recipe: computed(() => recipeStore.recipe),
   },
   methods: {
     setImageDataUrl: function () {
