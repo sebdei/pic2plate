@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!recipe">
     <div
       class="d-flex align-items-center justify-content-around image-selection"
     >
@@ -28,6 +28,10 @@
       </div>
     </div>
   </div>
+
+  <div v-if="recipe">
+    <RecipeView :recipe="recipe" :image="imageDataUrl"></RecipeView>
+  </div>
 </template>
 
 <script lang="ts">
@@ -35,6 +39,7 @@ import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
 
 import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
+import RecipeView from "@/views/recipe/RecipeView.vue";
 
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
@@ -42,6 +47,7 @@ import "vue-advanced-cropper/dist/style.css";
 export default defineComponent({
   components: {
     ImageDataUrlLoader,
+    RecipeView,
   },
   data() {
     return {
@@ -50,6 +56,7 @@ export default defineComponent({
       showIdentifyButton: false,
       recipe: undefined,
       responseText: null,
+      gotData: false,
     };
   },
   methods: {
