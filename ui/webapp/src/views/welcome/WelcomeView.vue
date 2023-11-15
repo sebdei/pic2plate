@@ -1,31 +1,19 @@
 <template>
   <div class="container">
+    <img src="./pic2plate.png" class="mw-100" />
+
+    <h3>
+      {{ $t("welcome") }}
+    </h3>
+
     <div
       class="d-flex align-items-center justify-content-around image-selection"
     >
-      <ImageDataUrlLoader @change="setImageDataUrl" />
-    </div>
-
-    <div v-if="imageDataUrl !== ''">
-      <div class="image">
-        <img :src="imageDataUrl" class="mb-3 mw-100" />
-      </div>
-
-      <button
-        v-if="showIdentifyButton"
-        @click="sendImage"
-        class="btn btn-secondary btn-lg btn-block"
-      >
-        Gimme your recipe!!
-      </button>
-
-      <div v-else-if="isFetching" class="spinner-border" role="status">
+      <div v-if="isFetching" class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
       </div>
 
-      <div v-if="responseText" class="mt-3">
-        <p class="white-space-preline">{{ responseText }}</p>
-      </div>
+      <ImageDataUrlLoader v-else @change="submit" />
     </div>
   </div>
 </template>
@@ -33,6 +21,7 @@
 <script lang="ts">
 import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
+import { recipeStore } from "@/store/recipeStore";
 
 import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
 
@@ -47,31 +36,37 @@ export default defineComponent({
     return {
       imageDataUrl: "",
       isFetching: false,
-      showIdentifyButton: false,
       recipe: undefined,
       responseText: null,
     };
   },
   methods: {
-    sendImage: async function () {
-      this.showIdentifyButton = false;
+    submit: async function (imageDataUrl: string) {
       this.isFetching = true;
 
-      const data = { image_data_url: this.imageDataUrl };
+      const data = { image_data_url: imageDataUrl };
       const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
 
       if (error) {
         console.log("error");
       } else {
         console.log(recipe);
-        this.isFetching = false;
-        this.recipe = recipe;
+        recipeStore.recipe = recipe;
+
+        this.$router.push();
       }
     },
-    setImageDataUrl: function (imageDataUrl: string) {
-      this.showIdentifyButton = true;
-      this.responseText = null;
-      this.imageDataUrl = imageDataUrl;
+  },
+  i18n: {
+    messages: {
+      de: {
+        welcome:
+          "Einfach ein Bild von deinem Essen machen und wir sagen dir das Rezept!",
+      },
+      en: {
+        welcome:
+          "Just take a picture of your food and we will tell you the recipe!",
+      },
     },
   },
 });
