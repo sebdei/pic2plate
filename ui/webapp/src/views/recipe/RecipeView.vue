@@ -1,6 +1,6 @@
 <template>
   <div class="image">
-    <img :src="image" class="mb-3 mw-100" />
+    <img src="/public/pic2plate.png" class="mb-3 mw-100" />
   </div>
   <div class="ingredients">
     {{ recipe }}
@@ -8,10 +8,6 @@
 </template>
 
 <script lang="ts">
-import * as api from "@/service/api";
-import { SUGGEST_RECIPE_URL } from "@/urls";
-import { computed } from "vue";
-
 import { recipeStore } from "@/stores/recipeStore";
 
 import { defineComponent } from "vue";
@@ -26,7 +22,9 @@ export default defineComponent({
     return {};
   },
   computed: {
-    recipe: computed(() => recipeStore.recipe),
+    recipe: function () {
+      return recipeStore.recipe;
+    },
   },
   methods: {
     setImageDataUrl: function () {

@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <img src="./pic2plate.png" class="mw-100" />
+    <img src="/img/pic2plate.png" class="mw-100 mb-4" />
 
-    <h3>
+    <h3 class="mb-5">
       {{ $t("welcome") }}
     </h3>
 
@@ -43,29 +43,31 @@ export default defineComponent({
   },
   methods: {
     submit: async function (imageDataUrl: string) {
-      this.isFetching = true;
+      this.$router.push({ name: "RecipeView" });
 
-      const data = { image_data_url: imageDataUrl };
-      const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+      return;
+      // this.isFetching = true;
 
-      if (error) {
-        console.log("error");
-      } else {
-        console.log(recipe);
-        recipeStore.recipe = recipe;
-        this.$router.push({ name: "RecipeView" });
-      }
+      // const data = { image_data_url: imageDataUrl };
+      // const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+
+      // if (error) {
+      //   console.log("error");
+      // } else {
+      //   console.log(recipe);
+      //   recipeStore.recipe = recipe;
+      //   this.$router.push({ name: "RecipeView" });
+      // }
     },
   },
   i18n: {
     messages: {
       de: {
         welcome:
-          "Einfach ein Bild von deinem Essen machen und wir sagen dir das Rezept!",
+          "Einfach ein Bild von deinem Essen machen, um dein Rezept zu erstellen!",
       },
       en: {
-        welcome:
-          "Just take a picture of your food and we will tell you the recipe!",
+        welcome: "Just take a picture of your food to get your recipe!",
       },
     },
   },
