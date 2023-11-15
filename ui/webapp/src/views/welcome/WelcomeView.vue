@@ -42,21 +42,19 @@ export default defineComponent({
   },
   methods: {
     submitImage: async function (imageDataUrl: string) {
-      // this.$router.push({ name: "ErrorView" });
       recipeStore.imageUrl = imageDataUrl;
-      this.$router.push({ name: "ErrorView" });
 
-      // this.isFetching = true;
+      this.isFetching = true;
 
-      // const data = { image_data_url: imageDataUrl };
-      // const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+      const data = { image_data_url: imageDataUrl };
+      const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
 
-      // if (error) {
-      //   this.$router.push({ name: "ErrorView" });
-      // } else {
-      //   recipeStore.recipe = recipe;
-      //   this.$router.push({ name: "RecipeView" });
-      // }
+      if (error) {
+        this.$router.push({ name: "ErrorView" });
+      } else {
+        recipeStore.recipe = recipe;
+        this.$router.push({ name: "RecipeView" });
+      }
     },
   },
   i18n: {
