@@ -9,28 +9,27 @@
     <div
       class="d-flex align-items-center justify-content-around image-selection"
     >
-      <div v-if="isFetching" class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-
-      <ImageDataUrlLoader v-else @change="submit" />
+      <ImageDataUrlLoader v-if="!isFetching" @change="submitImage" />
+      <LoadingIndicator v-else />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import * as api from "@/service/api";
-import { SUGGEST_RECIPE_URL } from "@/urls";
-
-import { recipeStore } from "@/stores/recipeStore";
-import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
-
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
+
+import * as api from "@/service/api";
+import { SUGGEST_RECIPE_URL } from "@/urls";
+import { recipeStore } from "@/stores/recipeStore";
+
+import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
+import LoadingIndicator from "@/components/loading/LoadingIndicator.vue";
 
 export default defineComponent({
   components: {
     ImageDataUrlLoader,
+    LoadingIndicator,
   },
   data() {
     return {
@@ -42,19 +41,19 @@ export default defineComponent({
     };
   },
   methods: {
-    submit: async function (imageDataUrl: string) {
-      this.$router.push({ name: "RecipeView" });
+    submitImage: async function (imageDataUrl: string) {
+      // this.$router.push({ name: "ErrorView" });
+      recipeStore.imageUrl = imageDataUrl;
+      this.$router.push({ name: "ErrorView" });
 
-      return;
       // this.isFetching = true;
 
       // const data = { image_data_url: imageDataUrl };
       // const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
 
       // if (error) {
-      //   console.log("error");
+      //   this.$router.push({ name: "ErrorView" });
       // } else {
-      //   console.log(recipe);
       //   recipeStore.recipe = recipe;
       //   this.$router.push({ name: "RecipeView" });
       // }

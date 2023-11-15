@@ -42,4 +42,5 @@ export const recipeStore: any = reactive({
       },
     ],
   },
+  imageUrl: "https://via.placeholder.com/150",
 });
