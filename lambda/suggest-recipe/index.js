@@ -13,10 +13,14 @@ export const handler = async (event, context) => {
     };
   }
 
-  const text = await getGptRecipe(imageDataUrl);
-  console.log(text);
+  const gptResponse = await getGptRecipe(imageDataUrl);
 
-  const resp = { text };
+  console.log("gptResponse:  ", JSON.stringify(gptResponse));
+
+  const jsonStr = gptResponse && extractJson(gptResponse);
+  const recipe = jsonStr && parse(jsonStr);
+
+  console.log("recipe: ", JSON.stringify(recipe));
 
   return {
     statusCode: 200,
@@ -24,7 +28,7 @@ export const handler = async (event, context) => {
       "Content-Type": "text/plain",
       ...corsHeaders(event),
     },
-    body: JSON.stringify(resp),
+    body: JSON.stringify(recipe),
   };
 };
 
@@ -48,18 +52,26 @@ async function getGptRecipe(imageDataUrl) {
       name: string;
 
       ingredients: Array<{
-        amount: string;
-        description: string;
+        amount: string
+        description: string
       }>;
 
-      steps: string[];
+
+      steps: Array<{
+        description: string;
+      }>;
     }
 
     Write the basics section according to the Recipe schema.
-    On the response, include only the JSON.
+    On the response, include only the JSON and no additional text.
   `;
+
   const completion = await openai.chat.completions.create({
     messages: [
+      {
+        role: "system",
+        content: "Output in JSON",
+      },
       {
         role: "user",
         content: [
@@ -76,9 +88,22 @@ async function getGptRecipe(imageDataUrl) {
         ],
       },
     ],
+    max_tokens: 500,
     model: "gpt-4-vision-preview",
-    max_tokens: 300,
   });
 
   return completion?.choices?.[0]?.message?.content;
+}
+
+function extractJson(gptResponse) {
+  const matches = new RegExp("```json((.|\n)*)```").exec(gptResponse);
+  return matches?.length >= 2 ? matches[1] : null;
+}
+
+function parse(jsonStr) {
+  try {
+    return JSON.parse(jsonStr);
+  } catch (e) {
+    return null;
+  }
 }
