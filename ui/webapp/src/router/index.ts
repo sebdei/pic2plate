@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import IdentifyImage from "@/views/identify/IdentifyImage.vue";
+import WelcomeView from "@/views/welcome/WelcomeView.vue";
 
 const routes = [
   { path: "/", redirect: { name: "identify" } },
-  { path: "/suggest_recipe", name: "identify", component: IdentifyImage },
+  { path: "/welcome", name: "identify", component: WelcomeView },
 ];
 
 const router = createRouter({
