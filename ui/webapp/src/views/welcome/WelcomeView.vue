@@ -1,84 +1,73 @@
 <template>
-  <div class="container" v-if="!recipe">
+  <div class="container">
+    <img src="/img/pic2plate.png" class="mw-100 mb-4" />
+
+    <h3 class="mb-5">
+      {{ $t("welcome") }}
+    </h3>
+
     <div
       class="d-flex align-items-center justify-content-around image-selection"
     >
-      <ImageDataUrlLoader @change="setImageDataUrl" />
+      <ImageDataUrlLoader v-if="!isFetching" @change="submitImage" />
+      <LoadingIndicator v-else />
     </div>
-
-    <div v-if="imageDataUrl !== ''">
-      <div class="image">
-        <img :src="imageDataUrl" class="mb-3 mw-100" />
-      </div>
-
-      <button
-        v-if="showIdentifyButton"
-        @click="sendImage"
-        class="btn btn-secondary btn-lg btn-block"
-      >
-        Gimme your recipe!!
-      </button>
-
-      <div v-else-if="isFetching" class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-
-      <div v-if="responseText" class="mt-3">
-        <pre>{{ responseText }}</pre>
-      </div>
-    </div>
-  </div>
-
-  <div v-if="recipe">
-    <RecipeView :recipe="recipe" :image="imageDataUrl"></RecipeView>
   </div>
 </template>
 
 <script lang="ts">
-import * as api from "@/service/api";
-import { SUGGEST_RECIPE_URL } from "@/urls";
-
-import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
-import RecipeView from "@/views/recipe/RecipeView.vue";
-
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
+
+import * as api from "@/service/api";
+import { SUGGEST_RECIPE_URL } from "@/urls";
+import { recipeStore } from "@/stores/recipeStore";
+
+import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
+import LoadingIndicator from "@/components/loading/LoadingIndicator.vue";
 
 export default defineComponent({
   components: {
     ImageDataUrlLoader,
-    RecipeView,
+    LoadingIndicator,
   },
   data() {
     return {
       imageDataUrl: "",
       isFetching: false,
-      showIdentifyButton: false,
       recipe: undefined,
       responseText: null,
       gotData: false,
     };
   },
   methods: {
-    sendImage: async function () {
-      this.showIdentifyButton = false;
-      this.isFetching = true;
+    submitImage: async function (imageDataUrl: string) {
+      // this.$router.push({ name: "ErrorView" });
+      recipeStore.imageUrl = imageDataUrl;
+      this.$router.push({ name: "ErrorView" });
 
-      const data = { image_data_url: this.imageDataUrl };
-      const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+      // this.isFetching = true;
 
-      if (error) {
-        console.log("error");
-      } else {
-        console.log(recipe);
-        this.isFetching = false;
-        this.recipe = recipe;
-      }
+      // const data = { image_data_url: imageDataUrl };
+      // const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+
+      // if (error) {
+      //   this.$router.push({ name: "ErrorView" });
+      // } else {
+      //   recipeStore.recipe = recipe;
+      //   this.$router.push({ name: "RecipeView" });
+      // }
     },
-    setImageDataUrl: function (imageDataUrl: string) {
-      this.showIdentifyButton = true;
-      this.responseText = null;
-      this.imageDataUrl = imageDataUrl;
+  },
+  i18n: {
+    messages: {
+      de: {
+        welcome:
+          "Einfach ein Bild von deinem Essen machen, um dein Rezept zu erstellen!",
+      },
+      en: {
+        welcome: "Just take a picture of your food to get your recipe!",
+      },
     },
   },
 });

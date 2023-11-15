@@ -1,12 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import WelcomeView from "@/views/welcome/WelcomeView.vue";
+import ErrorView from "@/views/error/ErrorView.vue";
 import RecipeView from "@/views/recipe/RecipeView.vue";
+import WelcomeView from "@/views/welcome/WelcomeView.vue";
 
 const routes = [
   { path: "/", redirect: { name: "identify" } },
-  { path: "/welcome", name: "identify", component: WelcomeView },
-  { path: "/recipe", name: "recipe", component: RecipeView },
+  { path: "/error", name: "ErrorView", component: ErrorView },
+  { path: "/recipe", name: "RecipeView", component: RecipeView },
+  { path: "/welcome", name: "WelcomeView", component: WelcomeView },
 ];
 
 const router = createRouter({

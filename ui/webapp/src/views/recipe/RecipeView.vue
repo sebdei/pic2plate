@@ -35,6 +35,8 @@
 </template>
 
 <script lang="ts">
+import { recipeStore } from "@/stores/recipeStore";
+
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
 
@@ -42,12 +44,20 @@ export default defineComponent({
   components: {},
   props: {
     image: String,
-    recipe: Object,
   },
   data() {
     return {};
   },
-  methods: {},
+  computed: {
+    recipe: function () {
+      return recipeStore.recipe;
+    },
+  },
+  methods: {
+    setImageDataUrl: function () {
+      //
+    },
+  },
 });
 </script>
 
