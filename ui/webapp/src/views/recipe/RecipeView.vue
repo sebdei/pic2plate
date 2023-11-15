@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper pb-5 d-flex flex-column vh-100">
     <div class="image">
-      <img src="/img/champignon.jpg" class="w-100" />
+      <img src="/img/champignon.jpg" class="image-top w-100" />
     </div>
 
     <div class="mt-5 ms-5 me-5">
@@ -69,6 +69,10 @@ export default defineComponent({
 .image {
   height: 35%;
   overflow: hidden;
+}
+
+.image-top {
+  min-height: 35%;
 }
 
 .name {
