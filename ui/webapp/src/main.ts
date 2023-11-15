@@ -1,11 +1,11 @@
-import { createApp } from "vue";
 import router from "@/router";
 import { createI18n } from "vue-i18n";
+import { createApp } from "vue";
 
 import App from "./App.vue";
 
-import "material-icons/iconfont/material-icons.css";
 import "bootstrap/dist/css/bootstrap.css";
+import "material-icons/iconfont/material-icons.css";
 
 import "@/assets/css/fonts/material-icons.css";
 
