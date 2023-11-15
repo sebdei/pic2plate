@@ -10,25 +10,20 @@
       class="d-flex align-items-center justify-content-around image-selection"
     >
       <div v-if="isFetching" class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
+        <span class="visually-hidden">Loading...</span>
       </div>
 
       <ImageDataUrlLoader v-else @change="submit" />
     </div>
-  </div>
-
-  <div v-if="recipe">
-    <RecipeView :recipe="recipe" :image="imageDataUrl"></RecipeView>
   </div>
 </template>
 
 <script lang="ts">
 import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
-import { recipeStore } from "@/store/recipeStore";
 
+import { recipeStore } from "@/stores/recipeStore";
 import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
-import RecipeView from "@/views/recipe/RecipeView.vue";
 
 import { defineComponent } from "vue";
 import "vue-advanced-cropper/dist/style.css";
@@ -36,7 +31,6 @@ import "vue-advanced-cropper/dist/style.css";
 export default defineComponent({
   components: {
     ImageDataUrlLoader,
-    RecipeView,
   },
   data() {
     return {
@@ -59,6 +53,7 @@ export default defineComponent({
       } else {
         console.log(recipe);
         recipeStore.recipe = recipe;
+        this.$router.push({ name: "RecipeView" });
       }
     },
   },
