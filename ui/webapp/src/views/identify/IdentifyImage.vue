@@ -48,6 +48,7 @@ export default defineComponent({
       imageDataUrl: "",
       isFetching: false,
       showIdentifyButton: false,
+      recipe: undefined,
       responseText: null,
     };
   },
@@ -57,10 +58,15 @@ export default defineComponent({
       this.isFetching = true;
 
       const data = { image_data_url: this.imageDataUrl };
-      const { text } = await api.post(SUGGEST_RECIPE_URL, data);
+      const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
 
-      this.isFetching = false;
-      this.responseText = text;
+      if (error) {
+        console.log("error");
+      } else {
+        console.log(recipe);
+        this.isFetching = false;
+        this.recipe = recipe;
+      }
     },
     setImageDataUrl: function (imageDataUrl: string) {
       this.showIdentifyButton = true;

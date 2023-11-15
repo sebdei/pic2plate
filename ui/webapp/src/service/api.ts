@@ -29,5 +29,5 @@ export async function post(
     method: "POST",
   });
 
-  return response?.json();
+  return await response?.json();
 }
