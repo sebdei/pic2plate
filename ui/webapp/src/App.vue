@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main>
+    <main class="min-vh-100">
       <router-view />
     </main>
   </div>
@@ -24,7 +24,7 @@ body {
   font-family: Helvetica, Avenir, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #6a7b8d;
   font-size: 18px;
 }
 </style>
