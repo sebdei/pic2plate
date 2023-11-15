@@ -24,7 +24,7 @@
       </div>
 
       <div v-if="responseText" class="mt-3">
-        <p class="white-space-preline">{{ responseText }}</p>
+        <pre>{{ responseText }}</pre>
       </div>
     </div>
   </div>
@@ -57,7 +57,6 @@ export default defineComponent({
       this.isFetching = true;
 
       const data = { image_data_url: this.imageDataUrl };
-
       const { text } = await api.post(SUGGEST_RECIPE_URL, data);
 
       this.isFetching = false;
