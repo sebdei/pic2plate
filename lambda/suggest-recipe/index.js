@@ -14,22 +14,10 @@ export const handler = async (event, context) => {
   }
 
   const gptResponse = await getGptRecipe(imageDataUrl);
-
-  console.log("gptResponse:  ", JSON.stringify(gptResponse));
-
   const jsonStr = gptResponse && extractJson(gptResponse);
   const recipe = jsonStr && parse(jsonStr);
 
-  console.log("recipe: ", JSON.stringify(recipe));
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "text/plain",
-      ...corsHeaders(event),
-    },
-    body: JSON.stringify(recipe),
-  };
+  return recipe ? writeSuccess(recipe, event) : writeError(event);
 };
 
 function corsHeaders(event) {
@@ -106,4 +94,28 @@ function parse(jsonStr) {
   } catch (e) {
     return null;
   }
+}
+
+function writeError(event) {
+  return {
+    statusCode: 500,
+    headers: {
+      "Content-Type": "text/plain",
+      ...corsHeaders(event),
+    },
+    body: JSON.stringify({
+      error: "Could not generate recipe.",
+    }),
+  };
+}
+
+function writeSuccess(json, event) {
+  return {
+    statusCode: 200,
+    headers: {
+      "Content-Type": "text/plain",
+      ...corsHeaders(event),
+    },
+    body: JSON.stringify(json),
+  };
 }
