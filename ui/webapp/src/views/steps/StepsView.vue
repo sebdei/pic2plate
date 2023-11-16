@@ -15,7 +15,6 @@
 import { recipeStore } from "@/stores/recipeStore";
 
 import { defineComponent } from "vue";
-import "vue-advanced-cropper/dist/style.css";
 
 export default defineComponent({
   components: {},
@@ -27,7 +26,6 @@ export default defineComponent({
   },
   computed: {
     recipe: function () {
-      console.log(recipeStore.recipe);
       return recipeStore.recipe;
     },
     step: function (): string {
