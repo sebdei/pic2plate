@@ -27,9 +27,11 @@
     </div>
 
     <div class="d-flex mt-auto justify-content-center">
-      <button type="button" class="btn btn-primary btn-lg w-75">
-        Let's go!
-      </button>
+      <router-link :to="{ name: 'StepsView' }">
+        <button type="button" class="btn btn-success btn-lg w-75">
+          Let's go!
+        </button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -53,11 +55,7 @@ export default defineComponent({
       return recipeStore.recipe;
     },
   },
-  methods: {
-    setImageDataUrl: function () {
-      //
-    },
-  },
+  methods: {},
 });
 </script>
 
