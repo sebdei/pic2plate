@@ -17,7 +17,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import "vue-advanced-cropper/dist/style.css";
 
 import * as api from "@/service/api";
 import { SUGGEST_RECIPE_URL } from "@/urls";
