@@ -7,9 +7,9 @@ export const handler = async (event, context) => {
   const imageDataUrl = jsonBody?.image_data_url;
 
   if (!imageDataUrl) {
+    // sic! For now do not return any error message to the client, because the lambda is not secured at all.
     return {
       statusCode: 400,
-      body: "Missing image_data_url in request body",
     };
   }
 
