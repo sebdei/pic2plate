@@ -9,11 +9,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "advanced-cropper": "^0.18.0",
     "bootstrap": "^5.3.2",
     "material-icons": "^1.13.12",
     "vue": "^3.2.13",
-    "vue-advanced-cropper": "^2.8.8",
     "vue-i18n": "^9.6.5",
     "vue-router": "^4.1.6"
   },
