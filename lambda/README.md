@@ -4,7 +4,7 @@ https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html#with-use
 
 `cd suggest-recipe && zip -r function.zip . && cd ..`
 
-`aws lambda update-function-code --function-name pic2plate-suggest-recipe --zip-file fileb://identify/function.zip`
+`aws lambda update-function-code --function-name pic2plate-suggest-recipe --zip-file fileb://suggest-recipe/function.zip`
 
 # Create AWS Lambda Function
 

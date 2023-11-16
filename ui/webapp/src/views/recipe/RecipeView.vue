@@ -40,7 +40,6 @@
 import { recipeStore } from "@/stores/recipeStore";
 
 import { defineComponent } from "vue";
-import "vue-advanced-cropper/dist/style.css";
 
 export default defineComponent({
   components: {},
