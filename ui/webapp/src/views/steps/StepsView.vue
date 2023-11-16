@@ -30,7 +30,7 @@ export default defineComponent({
       console.log(recipeStore.recipe);
       return recipeStore.recipe;
     },
-    step: function () {
+    step: function (): string {
       return recipeStore.recipe.steps[this.stepIndex];
     },
   },
