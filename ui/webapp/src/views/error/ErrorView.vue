@@ -11,50 +11,37 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-import * as api from "@/service/api";
-import { SUGGEST_RECIPE_URL } from "@/urls";
-import { recipeStore } from "@/stores/recipeStore";
+import * as api from '@/service/api'
+import { SUGGEST_RECIPE_URL } from '@/urls'
+import { recipeStore } from '@/stores/recipeStore'
 
-import ImageDataUrlLoader from "@/components/input/ImageDataUrlLoader.vue";
-import LoadingIndicator from "@/components/loading/LoadingIndicator.vue";
+import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
+import LoadingIndicator from '@/components/loading/LoadingIndicator.vue'
 
-export default defineComponent({
-  components: {
-    ImageDataUrlLoader,
-    LoadingIndicator,
-  },
-  data() {
-    return {
-      imageDataUrl: "",
-      isFetching: false,
-    };
-  },
-  computed: {
-    imageUrl: function () {
-      return recipeStore.imageUrl;
-    },
-  },
-  methods: {
-    setAndSubmit: function (imageDataUrl: string) {
-      this.imageDataUrl = imageDataUrl;
-    },
-    submitImage: async function () {
-      this.isFetching = true;
+const router = useRouter()
+const imageDataUrl = ref('')
+const isFetching = ref(false)
+const imageUrl = computed(() => recipeStore.imageUrl)
 
-      const data = { image_data_url: this.imageDataUrl };
-      const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data);
+const setAndSubmit = (imageDataUrl: string) => {
+  imageDataUrl.value = imageDataUrl
+}
 
-      if (error) {
-        console.log("error");
-      } else {
-        console.log(recipe);
-        recipeStore.recipe = recipe;
-        this.$router.push({ name: "RecipeView" });
-      }
-    },
-  },
-});
+const submitImage = async () => {
+  isFetching.value = true
+
+  const data = { image_data_url: imageDataUrl.value }
+  const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data)
+
+  if (error) {
+    console.log('error')
+  } else {
+    recipeStore.recipe = recipe
+    router.push({ name: 'RecipeView' })
+  }
+}
 </script>

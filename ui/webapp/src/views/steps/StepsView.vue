@@ -5,34 +5,17 @@
     <p>{{ step.description }}</p>
 
     <button @click="stepIndex - 1 >= 0 ? stepIndex-- : 0">Zurück</button>
-    <button @click="stepIndex + 1 < recipe.steps.length ? stepIndex++ : 0">
-      Weiter
-    </button>
+    <button @click="stepIndex + 1 < recipe.steps.length ? stepIndex++ : 0">Weiter</button>
   </div>
 </template>
 
-<script lang="ts">
-import { recipeStore } from "@/stores/recipeStore";
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { recipeStore } from '@/stores/recipeStore'
 
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  components: {},
-  props: {},
-  data() {
-    return {
-      stepIndex: 0,
-    };
-  },
-  computed: {
-    recipe: function () {
-      return recipeStore.recipe;
-    },
-    step: function (): string {
-      return recipeStore.recipe.steps[this.stepIndex];
-    },
-  },
-});
+const stepIndex = ref(0)
+const recipe = computed(() => recipeStore.recipe)
+const step = computed(() => recipe.value.steps[stepIndex.value])
 </script>
 
 <style scoped>
