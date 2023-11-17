@@ -1,6 +1,13 @@
 # Pic2Plate
 
-This template should help get you started developing with Vue 3 in Vite.
+## Service Worker and Manifest
+
+Service Worker and Manifest is injected via [vite-plugin-pwa](https://vite-pwa-org.netlify.app/). CAREFULLY read the instructions to get started. The plugin is configured in `vite.config.ts`.
+AWS Amplify requires to modify the source address in `Rewrite and redirects`
+
+```
+</^[^.]+$|\.(?!(css|gif|ico|jpg|js|png|txt|svg|woff|woff2|ttf|manifest|map|json|webmanifest)$)([^.]+$)/>
+```
 
 ## Recommended IDE Setup
 
