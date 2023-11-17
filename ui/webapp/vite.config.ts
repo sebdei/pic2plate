@@ -16,9 +16,6 @@ export default defineConfig({
     VueI18nPlugin({}),
     VitePWA({
       registerType: 'autoUpdate',
-      workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
-      },
       includeAssets: [
         'android-chrome-192x192.png',
         'android-chrome-512x512.png',
@@ -30,8 +27,9 @@ export default defineConfig({
         name: 'Pic2Plate',
         short_name: 'Pic2Plate',
         description: 'Pic2Plate - Recipe finder',
-        display: 'standalone',
+        display: 'fullscreen',
         theme_color: '#ffffff',
+        start_url: '/',
         icons: [
           {
             src: '/android-chrome-192x192.png',
