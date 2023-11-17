@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid text-center">
-    <img src="/img/pic2plate.png" class="mw-100 mb-4" />
+    <img src="/img/pic2plate.png" class="mw-100 mb-4 p-5" />
 
     <h3 class="mb-5">
       {{ t('welcome') }}
