@@ -27,8 +27,8 @@ const imageDataUrl = ref('')
 const isFetching = ref(false)
 const imageUrl = computed(() => recipeStore.imageUrl)
 
-const setAndSubmit = (imageDataUrl: string) => {
-  imageDataUrl.value = imageDataUrl
+const setAndSubmit = (dataUrl: string) => {
+  imageDataUrl.value = dataUrl
 }
 
 const submitImage = async () => {
