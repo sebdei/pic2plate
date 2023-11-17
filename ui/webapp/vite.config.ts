@@ -27,6 +27,7 @@ export default defineConfig({
         name: 'Pic2Plate',
         short_name: 'Pic2Plate',
         description: 'Pic2Plate - Recipe finder',
+        display: 'standalone',
         theme_color: '#ffffff',
         icons: [
           {
