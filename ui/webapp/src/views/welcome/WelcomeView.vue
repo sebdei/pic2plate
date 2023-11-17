@@ -35,12 +35,12 @@ const submitImage = async (imageDataUrl: string) => {
   isFetching.value = true
 
   const data = { image_data_url: imageDataUrl }
-  // const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data)
+  const { error, ...recipe } = await api.post(SUGGEST_RECIPE_URL, data)
 
   if (false) {
     router.push({ name: 'ErrorView' })
   } else {
-    // recipeStore.recipe = recipe
+    recipeStore.recipe = recipe
     router.push({ name: 'RecipeView' })
   }
 }
