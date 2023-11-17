@@ -8,31 +8,26 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+const emits = defineEmits(['change'])
 
-export default defineComponent({
-  emits: ["change"],
-  methods: {
-    loadImage: function (e: Event) {
-      const image = (e.target as HTMLInputElement)?.files?.[0];
+const loadImage = (e: Event) => {
+  const image = (e.target as HTMLInputElement)?.files?.[0]
 
-      if (image) {
-        const reader = new FileReader();
+  if (image) {
+    const reader = new FileReader()
 
-        reader.readAsDataURL(image);
-        reader.onload = (e) => {
-          const imageDataUrl = e.target?.result;
-          this.$emit("change", imageDataUrl);
-        };
-      }
-    },
-  },
-});
+    reader.readAsDataURL(image)
+    reader.onload = (e) => {
+      const imageDataUrl = e.target?.result
+      emits('change', imageDataUrl)
+    }
+  }
+}
 </script>
 
 <style scoped>
-input[type="file"] {
+input[type='file'] {
   display: none;
 }
 </style>

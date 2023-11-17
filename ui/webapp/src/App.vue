@@ -1,21 +1,17 @@
 <template>
   <div>
     <main class="min-vh-100">
-      <router-view />
+      <RouterView />
     </main>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "App",
-});
+<script setup lang="ts">
+import { RouterView } from 'vue-router'
 </script>
 
 <style>
-html,
+header html,
 body {
   height: 100%;
 }

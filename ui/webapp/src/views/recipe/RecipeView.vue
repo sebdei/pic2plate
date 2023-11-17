@@ -6,7 +6,7 @@
 
     <div class="mt-5 ms-5 me-5">
       <h2 class="name">
-        {{ recipe!.name }}
+        {{ recipeStore.recipe!.name }}
       </h2>
     </div>
 
@@ -17,7 +17,7 @@
         <ul class="mt-4">
           <li
             class="ingredient pb-1"
-            v-for="ingredient in recipe!.ingredients"
+            v-for="ingredient in recipeStore.recipe!.ingredients"
             :key="ingredient.name"
           >
             {{ ingredient.amount }} {{ ingredient.description }}
@@ -27,35 +27,18 @@
     </div>
 
     <div class="d-flex mt-auto justify-content-center">
-      <router-link :to="{ name: 'StepsView' }">
-        <button type="button" class="btn btn-success btn-lg w-75">
-          Let's go!
-        </button>
-      </router-link>
+      <RouterLink :to="{ name: 'StepsView' }">
+        <button type="button" class="btn btn-success btn-lg w-75">Let's go!</button>
+      </RouterLink>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { recipeStore } from "@/stores/recipeStore";
+<script setup lang="ts">
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  components: {},
-  props: {
-    image: String,
-  },
-  data() {
-    return {};
-  },
-  computed: {
-    recipe: function () {
-      return recipeStore.recipe;
-    },
-  },
-  methods: {},
-});
+import { recipeStore } from '@/stores/recipeStore'
 </script>
 
 <style scoped>

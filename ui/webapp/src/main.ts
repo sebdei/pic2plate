@@ -1,20 +1,20 @@
-import router from "@/router";
-import { createI18n } from "vue-i18n";
-import { createApp } from "vue";
+import { createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
+import App from './App.vue'
+import router from './router'
 
-import App from "./App.vue";
+import 'bootstrap/dist/css/bootstrap.css'
+import 'material-icons/iconfont/material-icons.css'
 
-import "bootstrap/dist/css/bootstrap.css";
-import "material-icons/iconfont/material-icons.css";
-
-import "@/assets/css/fonts/material-icons.css";
+import '@/assets/css/fonts/material-icons.css'
 
 const i18n = createI18n({
-  // something vue-i18n options here ...
-});
+  legacy: false
+})
 
-const app = createApp(App);
-app.use(router);
-app.use(i18n);
+const app = createApp(App)
 
-app.mount("#app");
+app.use(i18n)
+app.use(router)
+
+app.mount('#app')
