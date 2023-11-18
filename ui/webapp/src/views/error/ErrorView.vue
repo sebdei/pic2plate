@@ -1,15 +1,13 @@
 <template>
   <div class="container-fluid">
-    <img :src="imageDataUrl" class="mw-100 mb-4" />
+    <img :src="imageUrl" class="mw-100 mb-4" />
 
     <div v-if="!isFetching" class="d-flex justify-content-between">
       <span class="material-icons md-64" @click="submitImage"> replay </span>
-      <ImageDataUrlLoader @change="setAndSubmit" />
+      <!-- <ImageDataUrlLoader @change="setAndSubmit" /> -->
     </div>
 
-    <div v-else class="d-flex justify-content-center">
-      <LoadingIndicator />
-    </div>
+    <LoadingIndicator v-else />
   </div>
 </template>
 
@@ -25,8 +23,9 @@ import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
 import LoadingIndicator from '@/components/loading/LoadingIndicator.vue'
 
 const router = useRouter()
+const imageDataUrl = ref('')
 const isFetching = ref(false)
-const imageDataUrl = computed(() => recipeStore.imageUrl)
+const imageUrl = computed(() => recipeStore.imageUrl)
 
 const setAndSubmit = (dataUrl: string) => {
   imageDataUrl.value = dataUrl
