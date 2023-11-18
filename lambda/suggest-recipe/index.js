@@ -32,7 +32,7 @@ function corsHeaders(event) {
 async function getGptRecipe(imageDataUrl) {
   const prompt = `
     You are going to write a JSON to answer the following question:
-    "Ich benötige ein leckeres Rezept mit den Zutaten, die auf dem Foto zu sehen sind."
+    "Ich benötige ein leckeres Rezept mit den Zutaten, die auf dem Foto zu sehen sind. Weitere benötigte Zutaten kann ich einkaufen. Ich habe Standard-Zutaten wie Salz und Pfeffer bereits zu Hause."
 
     Now consider the following TypeScript Interface for the JSON schema:
 
