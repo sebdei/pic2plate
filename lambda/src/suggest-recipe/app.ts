@@ -21,7 +21,7 @@ export const handler = async (event: APIGatewayEvent) => {
   return recipe ? writeSuccess(recipe, event) : writeError(event)
 }
 
-function corsHeaders(event: any) {
+function corsHeaders(event: APIGatewayEvent) {
   return {
     'Access-Control-Allow-Credentials': false,
     'Access-Control-Allow-Headers': '*',
@@ -84,12 +84,12 @@ async function getGptRecipe(imageDataUrl: string) {
   return completion?.choices?.[0]?.message?.content
 }
 
-function extractJson(gptResponse: any) {
+function extractJson(gptResponse: string) {
   const matches = new RegExp('```json((.|\n)*)```').exec(gptResponse)
   return matches?.length ?? 0 >= 2 ? matches?.[1] : null
 }
 
-function parse(jsonStr: any) {
+function parse(jsonStr: string) {
   try {
     return JSON.parse(jsonStr)
   } catch (e) {
@@ -97,7 +97,7 @@ function parse(jsonStr: any) {
   }
 }
 
-function writeError(event: any) {
+function writeError(event: APIGatewayEvent) {
   return {
     statusCode: 500,
     headers: {
@@ -110,7 +110,7 @@ function writeError(event: any) {
   }
 }
 
-function writeSuccess(json: any, event: any) {
+function writeSuccess(json: object, event: APIGatewayEvent) {
   return {
     statusCode: 200,
     headers: {
