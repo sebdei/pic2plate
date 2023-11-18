@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run sam",
+    "deploy": "zip -r function.zip . && aws lambda update-function-code --function-name pic2plate-suggest-recipe --zip-file fileb://function.zip",
     "sam": "cd .. && sam local start-api --host 0.0.0.0 --env-vars .env.json",
+    "start": "npm run sam",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
