@@ -9,7 +9,8 @@ import 'material-icons/iconfont/material-icons.css'
 import '@/assets/css/fonts/material-icons.css'
 
 const i18n = createI18n({
-  legacy: false
+  legacy: false,
+  locale: 'de'
 })
 
 const app = createApp(App)
