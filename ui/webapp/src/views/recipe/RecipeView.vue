@@ -7,7 +7,7 @@
     </div>
 
     <div class="mb-5 ms-5 me-5">
-      <div class="mt-3 ingredients">
+      <div class="mt-3">
         <h3>
           {{ t('ingredients') }}
         </h3>
