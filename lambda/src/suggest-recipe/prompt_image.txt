@@ -1,0 +1,10 @@
+You are going to write a JSON to answer the following question:
+"Welche Zutaten sind auf dem Rezept zu sehen?"
+
+Now consider the following TypeScript Interface for the JSON schema:
+
+ingredients: string[];
+
+Write the basics section according to the Recipe schema.
+On the response, include only the JSON and no additional text.
+Answer in german:
