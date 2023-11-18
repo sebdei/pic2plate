@@ -3,6 +3,9 @@ node_modules
 /dist
 
 
+# sam files
+.aws-sam
+
 # local env files
 .env
 .env*
