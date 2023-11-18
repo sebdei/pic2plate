@@ -7,7 +7,7 @@
     </h3>
 
     <div class="d-flex align-items-center justify-content-around image-selection">
-      <ImageDataUrlLoader v-if="!isFetching" @change="submitImage" />
+      <ImageDataUrlLoader v-if="!isFetching" :max-height="1920" @change="submitImage" />
       <LoadingIndicator v-else />
     </div>
   </div>
