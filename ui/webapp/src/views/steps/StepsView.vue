@@ -2,10 +2,10 @@
   <div>
     <h2>{{ stepIndex + 1 }}</h2>
 
-    <p>{{ step.description }}</p>
+    <p>{{ currentStep?.description }}</p>
 
-    <button @click="stepIndex - 1 >= 0 ? stepIndex-- : 0">Zurück</button>
-    <button @click="stepIndex + 1 < recipe.steps.length ? stepIndex++ : 0">Weiter</button>
+    <button :disabled="stepIndex === 0" @click="stepIndex--">Zurück</button>
+    <button :disabled="stepIndex >= totalSteps - 1" @click="stepIndex++">Weiter</button>
   </div>
 </template>
 
@@ -14,29 +14,8 @@ import { ref, computed } from 'vue'
 import { recipeStore } from '@/stores/recipeStore'
 
 const stepIndex = ref(0)
-const recipe = computed(() => recipeStore.recipe)
-const step = computed(() => recipe.value.steps[stepIndex.value])
+const currentStep = computed(() => recipeStore.recipe.steps[stepIndex.value])
+const totalSteps = computed(() => recipeStore.recipe.steps.length)
 </script>
 
-<style scoped>
-.wrapper {
-  background-color: #eeeeee05;
-}
-
-.image {
-  height: 35%;
-  overflow: hidden;
-}
-
-.name {
-  font-size: 2.5rem;
-}
-
-.ingredients ul {
-  padding-left: 1rem;
-}
-
-button {
-  font-size: 1.75rem;
-}
-</style>
+<style scoped></style>
