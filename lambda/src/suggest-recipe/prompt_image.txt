@@ -1,5 +1,5 @@
 You are going to write a JSON to answer the following question:
-"Welche Zutaten sind auf dem Rezept zu sehen?"
+"Welche Zutaten sind auf dem Bild zu sehen?"
 
 Now consider the following TypeScript Interface for the JSON schema:
 

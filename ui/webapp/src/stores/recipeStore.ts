@@ -39,5 +39,7 @@ export const recipeStore: any = reactive({
       }
     ]
   },
-  imageUrl: 'https://via.placeholder.com/150'
-})
+  imageUrl: 'https://via.placeholder.com/150',
+  history: [],
+  recognizedIngredients: []
+} as const)
