@@ -1,6 +1,6 @@
 import { Recipe } from '../dto/recipe.dto'
 import * as JSONUtils from '../utils/json'
-import { getJsonChatCompletion } from '../utils/openai'
+import { chatCompletion } from '../utils/openai'
 
 export async function getRecipe(ingredients: string[], history?: string[] | null) {
   const formattedHistory = history?.map((entry) => `'${entry}'`).join(', ')
@@ -36,10 +36,9 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
     Answer in german:
   `
 
-  const response = await getJsonChatCompletion('gpt-4-1106-preview', prompt)
+  const response = await chatCompletion('gpt-4-1106-preview', prompt)
 
   const jsonStr = response && JSONUtils.extractJson(response)
-  if (!jsonStr) return null
 
-  return JSONUtils.parse<Recipe>(jsonStr)
+  return jsonStr != null ? JSONUtils.parse<Recipe>(jsonStr) : null
 }

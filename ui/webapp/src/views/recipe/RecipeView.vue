@@ -5,6 +5,7 @@
         <span class="material-icons md-40"> arrow_back_ios_new </span>
       </button>
     </RouterLink>
+
     <img src="/img/header.jpg" />
   </div>
 
@@ -13,6 +14,7 @@
       <h3 class="name">
         {{ recipe.name }}
       </h3>
+
       <span class="opacity-50">{{ recipe.duration }}</span>
     </div>
 
@@ -33,33 +35,23 @@
 
     <div class="my-4 mx-4 buttons d-flex justify-content-between">
       <button
-        type="button"
+        :disabled="recipeStore.history.length - recipeStore.historyPointer < 1"
         class="bg-transparent border-0 d-flex align-items-center button-muted"
+        type="button"
         @click="previousRecipe()"
-        :disabled="isGoingBack || recipeStore.history.length - recipeStore.historyPointer < 1"
       >
-        <svg
-          v-if="!isGoingBack"
-          :class="{ spinner: isGoingBack }"
-          xmlns="http://www.w3.org/2000/svg"
-          height="56"
-          width="56"
-          viewBox="0 -960 960 960"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" height="56" width="56" viewBox="0 -960 960 960">
           <path
             d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"
           />
         </svg>
-        <div class="spinner-wrapper d-flex align-items-center justify-content-center" v-else>
-          <LoadingIndicator />
-        </div>
       </button>
 
       <button
-        type="button"
-        class="bg-transparent border-0 d-flex align-items-center button-muted"
-        @click="newRecipe()"
         :disabled="isFetching"
+        class="bg-transparent border-0 d-flex align-items-center button-muted"
+        type="button"
+        @click="newRecipe()"
       >
         <span :class="{ spinner: isFetching }" class="material-icons md-56"> autorenew </span>
       </button>
@@ -78,30 +70,25 @@
 </template>
 
 <script setup lang="ts">
-import LoadingIndicator from '@/components/loading/LoadingIndicator.vue'
+import StepList from './steps/StepList.vue'
+
 import * as api from '@/service/api'
-import { recipeStore } from '@/stores/recipeStore'
 import { SUGGEST_RECIPE_URL } from '@/urls'
+import { recipeStore } from '@/stores/recipeStore'
+
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { RouterLink } from 'vue-router'
-import StepList from './steps/StepList.vue'
 
 const { t } = useI18n()
 
 const recipe = computed(() => recipeStore.recipe)
 
 const isFetching = ref(false)
-const isGoingBack = ref(false)
 
 function previousRecipe() {
-  isGoingBack.value = true
-  setTimeout(() => {
-    recipeStore.historyPointer = recipeStore.historyPointer + 1
-    recipeStore.recipe = recipeStore.history.at(-recipeStore.historyPointer)
-
-    isGoingBack.value = false
-  }, 2500)
+  recipeStore.historyPointer = recipeStore.historyPointer + 1
+  recipeStore.recipe = recipeStore.history.at(-recipeStore.historyPointer)
 }
 
 async function newRecipe() {

@@ -16,12 +16,14 @@
 <script setup lang="ts">
 import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
 import LoadingIndicator from '@/components/loading/LoadingIndicator.vue'
-import * as api from '@/service/api'
+
 import { SUGGEST_RECIPE_URL } from '@/urls'
+import { recipeStore } from '../../stores/recipeStore'
+import * as api from '@/service/api'
+
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { recipeStore } from '../../stores/recipeStore'
 
 const { t } = useI18n()
 const router = useRouter()

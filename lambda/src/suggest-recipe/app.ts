@@ -2,7 +2,9 @@ import { APIGatewayEvent } from 'aws-lambda'
 import { RecipeRequest } from './dto/request.dto'
 import { getIngredientsFromImage } from './services/ingredients.service'
 import { getRecipe } from './services/recipe.service'
-import { buildResponse, writeError, writeInputError, writeSuccess } from './utils/response'
+import { Recipe } from './dto/recipe.dto'
+import { writeInternalServerError, writeClientError, writeSuccess } from './utils/response'
+import { RecipeResponse } from './dto/response.dto'
 
 export const handler = async (event: APIGatewayEvent) => {
   const jsonBody: RecipeRequest = event?.body && JSON.parse(event.body)
@@ -10,17 +12,24 @@ export const handler = async (event: APIGatewayEvent) => {
   const { history, image_data_url, ingredients: bodyIngredients } = jsonBody
 
   if (!image_data_url && !bodyIngredients) {
-    return writeInputError()
+    return writeClientError()
   } else {
-    const recognizedIngredients = image_data_url
-      ? await getIngredientsFromImage(image_data_url)
-      : null
-    const ingredients = [...(recognizedIngredients ?? []), ...(bodyIngredients ?? [])]
+    const imageIngredients = image_data_url ? await getIngredientsFromImage(image_data_url) : null
+    const ingredients = [...(imageIngredients ?? []), ...(bodyIngredients ?? [])]
 
     const recipe = await getRecipe(ingredients, history)
 
-    return recipe
-      ? writeSuccess(buildResponse(recipe, recognizedIngredients), event)
-      : writeError(event)
+    const responseDto = recipe != null ? createResponse(recipe, imageIngredients) : null
+
+    return responseDto
+      ? writeSuccess(responseDto, event)
+      : writeInternalServerError('Could not generate recipe.', event)
+  }
+}
+
+export function createResponse(recipe: Recipe, imageIngredients: string[] | null): RecipeResponse {
+  return {
+    image_ingredients: imageIngredients,
+    recipe: recipe
   }
 }
