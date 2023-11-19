@@ -14,11 +14,15 @@ export const handler = async (event: APIGatewayEvent) => {
   if (!image_data_url && !bodyIngredients) {
     return writeInputError()
   } else {
-    const recognizedIngredients = image_data_url ? await getIngredientsFromImage(image_data_url) : null
+    const recognizedIngredients = image_data_url
+      ? await getIngredientsFromImage(image_data_url)
+      : null
     const ingredients = [...(recognizedIngredients ?? []), ...(bodyIngredients ?? [])]
 
     const recipe = await getRecipe(ingredients, history)
 
-    return recipe ? writeSuccess(buildResponse(recipe, recognizedIngredients), event) : writeError(event)
+    return recipe
+      ? writeSuccess(buildResponse(recipe, recognizedIngredients), event)
+      : writeError(event)
   }
 }

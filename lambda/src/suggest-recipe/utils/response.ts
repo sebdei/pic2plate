@@ -1,10 +1,10 @@
 import { APIGatewayEvent } from 'aws-lambda'
 import { Recipe } from '../dto/recipe.dto'
 
-export function buildResponse(recipe: Recipe, ingredients: string[] | null) {
+export function buildResponse(recipe: Recipe, recognizedIngredients: string[] | null) {
   return {
     recipe,
-    ...(ingredients ? { ingredients } : {})
+    ...(recognizedIngredients ? { recognizedIngredients } : {})
   }
 }
 

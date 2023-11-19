@@ -36,7 +36,9 @@ export async function getIngredientsFromImage(img: string) {
   console.log('GET INGREDIENTS', prompt, jsonStr)
   if (!jsonStr) return []
 
-  const ingredients = JSONUtils.parse<Recipe['ingredients']>(jsonStr)?.map((ingredient) => ingredient.description)
+  const ingredients = JSONUtils.parse<Recipe['ingredients']>(jsonStr)?.map(
+    (ingredient) => ingredient.description
+  )
 
   return ingredients ? ingredients : []
 }

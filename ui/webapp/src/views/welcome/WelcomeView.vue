@@ -1,11 +1,10 @@
-lea
 <template>
   <div class="container-fluid text-center">
     <img src="/img/pic2plate.png" class="mw-100 mb-4 p-5" />
 
-    <h3 class="mb-5">
+    <p class="mb-5 text-medium">
       {{ t('welcome') }}
-    </h3>
+    </p>
 
     <div class="d-flex align-items-center justify-content-around image-selection">
       <ImageDataUrlLoader v-if="!isFetching" :max-height="1920" @change="submitImage" />
@@ -40,7 +39,7 @@ const submitImage = async (imageDataUrl: string) => {
   } else {
     recipeStore.recipe = recipe
     recipeStore.recognizedIngredients = recognizedIngredients
-    recipeStore.history = [...recipeStore.history, recipe.name]
+    recipeStore.history = [...recipeStore.history, recipe]
     router.push({ name: 'RecipeView' })
   }
 }
@@ -55,8 +54,8 @@ const submitImage = async (imageDataUrl: string) => {
   height: 300px;
 }
 
-.white-space-preline {
-  white-space: pre-line;
+p {
+  font-size: 1.5rem;
 }
 </style>
 

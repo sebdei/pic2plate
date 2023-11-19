@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'material-icons/iconfont/material-icons.css'
 
 import '@/assets/css/fonts/material-icons.css'
+import '@/assets/css/fonts/poppins.css'
 
 const i18n = createI18n({
   legacy: false,

@@ -1,27 +1,68 @@
 <template>
-  <div class="container-fluid d-flex flex-column vh-100 pb-5">
-    <button @click="newRecipe()">NOCHMAL!!!</button>
-    <div class="my-5 ms-5 me-5">
-      <h2 class="name">
-        {{ recipe!.name }}
-      </h2>
+  <div class="header">
+    <RouterLink :to="{ name: 'WelcomeView' }">
+      <button type="button" class="bg-transparent border-0 button-muted">
+        <span class="material-icons md-40"> arrow_back_ios_new </span>
+      </button>
+    </RouterLink>
+    <img src="/img/header.jpg" />
+  </div>
+
+  <div class="recipe container-fluid d-flex flex-column pt-3 pb-5">
+    <div class="mt-5 mb-2 mx-3">
+      <h3 class="name">
+        {{ recipe.name }}
+      </h3>
+      <span class="opacity-50">{{ recipe.duration }}</span>
     </div>
 
-    <div class="mb-5 ms-5 me-5">
+    <div class="mb-4 mx-3">
       <div class="mt-3">
-        <h3>
+        <h4>
           {{ t('ingredients') }}
-        </h3>
+        </h4>
 
         <ul class="mt-4 ps-3">
           <li class="pb-1" v-for="ingredient in recipe.ingredients" :key="ingredient.name">
-            {{ ingredient.amount }} {{ ingredient.description }}
+            {{ ingredient.amount }}
+            {{ ingredient.description }}
           </li>
         </ul>
       </div>
     </div>
 
-    <StepList />
+    <div class="my-4 mx-4 buttons d-flex justify-content-between">
+      <button
+        type="button"
+        class="bg-transparent border-0 d-flex align-items-center button-muted"
+        @click="previousRecipe()"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" height="56" width="56" viewBox="0 -960 960 960">
+          <path
+            d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"
+          />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="bg-transparent border-0 d-flex align-items-center button-muted"
+        @click="newRecipe()"
+        :disabled="isFetching"
+      >
+        <span :class="{ spinner: isFetching }" class="material-icons md-56"> autorenew </span>
+      </button>
+    </div>
+
+    <div class="mt-4 mb-2 mx-3">
+      <StepList />
+    </div>
+
+    <div class="footer mb-2">
+      <RouterLink :to="{ name: 'StepView' }">
+        <button class="btn btn-lg btn-success text-center">Jetzt schrittweise kochen</button>
+      </RouterLink>
+    </div>
   </div>
 </template>
 
@@ -29,28 +70,72 @@
 import * as api from '@/service/api'
 import { recipeStore } from '@/stores/recipeStore'
 import { SUGGEST_RECIPE_URL } from '@/urls'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { RouterLink } from 'vue-router'
 import StepList from './steps/StepList.vue'
 
 const { t } = useI18n()
 
 const recipe = computed(() => recipeStore.recipe)
 
+const isFetching = ref(false)
+
+function previousRecipe() {
+  isFetching.value = true
+
+  const previousRecipe = recipeStore.history[recipeStore.history.length - 2]
+  recipeStore.recipe = previousRecipe
+
+  isFetching.value = false
+}
+
 async function newRecipe() {
+  isFetching.value = true
   const data = {
-    history: recipeStore.history,
+    history: recipeStore.history.map((recipe: any) => recipe.name),
     ingredients: recipeStore.recognizedIngredients
   }
 
   const { error, recipe } = await api.post(SUGGEST_RECIPE_URL, data)
 
   recipeStore.recipe = recipe
-  recipeStore.history = [...recipeStore.history, recipe.name]
+  recipeStore.history = [...recipeStore.history, recipe]
+  window.scrollTo({ top: 20, behavior: 'smooth' })
+
+  isFetching.value = false
 }
 </script>
 
 <style scoped>
+.header {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+.header a {
+  position: absolute;
+  top: 15px;
+  z-index: 100;
+}
+.header button {
+  color: white;
+}
+
+.header img {
+  width: 130%;
+  transform: translateY(-50px);
+}
+
+.recipe {
+  position: relative;
+  margin-top: -150px;
+  z-index: 10;
+  background-color: white;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+}
+
 .image {
   height: 35%;
   overflow: hidden;
@@ -61,7 +146,21 @@ async function newRecipe() {
 }
 
 .name {
-  font-size: 2.5rem;
+  font-size: 1.8rem;
+}
+
+.spinner {
+  animation: spinner-border 0.75s linear infinite;
+}
+
+.button-muted,
+.button-muted svg {
+  color: var(--bs-secondary-color);
+  fill: var(--bs-secondary-color);
+}
+
+.footer button {
+  width: 100%;
 }
 </style>
 

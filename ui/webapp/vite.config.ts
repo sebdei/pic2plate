@@ -15,6 +15,9 @@ export default defineConfig({
     VueI18nPlugin({}),
     VitePWA({
       registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true
+      },
       includeAssets: [
         'android-chrome-192x192.png',
         'android-chrome-512x512.png',

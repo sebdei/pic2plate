@@ -17,10 +17,24 @@ body {
 }
 
 #app {
-  font-family: Helvetica, Avenir, Arial, sans-serif;
+  font-family: 'Poppins-Light', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #6a7b8d;
+  color: #516172;
+  /* color: #6a7b8d; */
   font-size: 18px;
+}
+
+button {
+  font-family: 'Poppins-Medium', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Poppins-Bold', sans-serif;
 }
 </style>

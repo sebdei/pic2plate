@@ -18,6 +18,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
     
     interface Recipe {
       name: string;
+      duration: string;
     
       ingredients: Array<{
         amount: string
@@ -35,12 +36,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
     Answer in german:
   `
 
-  const response = await getJsonChatCompletion('gpt-4-1106-preview', [
-    {
-      type: 'text',
-      text: prompt
-    }
-  ])
+  const response = await getJsonChatCompletion('gpt-4-1106-preview', prompt)
 
   const jsonStr = response && JSONUtils.extractJson(response)
   console.log('GET RECIPE', prompt, jsonStr)
