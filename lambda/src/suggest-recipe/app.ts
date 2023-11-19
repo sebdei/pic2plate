@@ -7,8 +7,6 @@ import { buildResponse, writeError, writeInputError, writeSuccess } from './util
 export const handler = async (event: APIGatewayEvent) => {
   const jsonBody: RecipeRequest = event?.body && JSON.parse(event.body)
 
-  console.log('RECEIVED DATA', jsonBody)
-
   const { history, image_data_url, ingredients: bodyIngredients } = jsonBody
 
   if (!image_data_url && !bodyIngredients) {
