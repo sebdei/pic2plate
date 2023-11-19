@@ -17,13 +17,16 @@ export async function post(
 ) {
   const query = formatQuery(queryParams)
 
-  const response = await fetch(`${url}${query}`, {
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'POST'
-  })
-
-  return await response?.json()
+  try {
+    const response = await fetch(`${url}${query}`, {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    })
+    return await response?.json()
+  } catch (error) {
+    return { error }
+  }
 }

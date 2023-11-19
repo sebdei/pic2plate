@@ -16,7 +16,7 @@
       <span class="opacity-50">{{ recipe.duration }}</span>
     </div>
 
-    <div class="mb-4 mx-3">
+    <div class="mb-1 mx-3">
       <div class="mt-3">
         <h4>
           {{ t('ingredients') }}
@@ -36,6 +36,7 @@
         type="button"
         class="bg-transparent border-0 d-flex align-items-center button-muted"
         @click="previousRecipe()"
+        :disabled="recipeStore.history.length - recipeStore.historyPointer < 2"
       >
         <svg xmlns="http://www.w3.org/2000/svg" height="56" width="56" viewBox="0 -960 960 960">
           <path
@@ -84,14 +85,15 @@ const isFetching = ref(false)
 function previousRecipe() {
   isFetching.value = true
 
-  const previousRecipe = recipeStore.history[recipeStore.history.length - 2]
-  recipeStore.recipe = previousRecipe
+  recipeStore.historyPointer = recipeStore.historyPointer + 1
+  recipeStore.recipe = recipeStore.history.at(-recipeStore.historyPointer)
 
   isFetching.value = false
 }
 
 async function newRecipe() {
   isFetching.value = true
+
   const data = {
     history: recipeStore.history.map((recipe: any) => recipe.name),
     ingredients: recipeStore.recognizedIngredients
@@ -99,9 +101,12 @@ async function newRecipe() {
 
   const { error, recipe } = await api.post(SUGGEST_RECIPE_URL, data)
 
-  recipeStore.recipe = recipe
-  recipeStore.history = [...recipeStore.history, recipe]
-  window.scrollTo({ top: 20, behavior: 'smooth' })
+  if (recipe) {
+    recipeStore.recipe = recipe
+    recipeStore.historyPointer = 1
+    recipeStore.history = [...recipeStore.history, recipe]
+    window.scrollTo({ top: 20, behavior: 'smooth' })
+  }
 
   isFetching.value = false
 }
@@ -151,6 +156,10 @@ async function newRecipe() {
 
 .spinner {
   animation: spinner-border 0.75s linear infinite;
+}
+
+button:disabled {
+  opacity: 0.3;
 }
 
 .button-muted,

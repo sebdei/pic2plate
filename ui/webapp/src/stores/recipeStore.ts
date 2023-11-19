@@ -44,5 +44,6 @@ export const recipeStore: any = reactive({
   recipe: mockRecipe,
   imageUrl: 'https://via.placeholder.com/150',
   history: [mockRecipe],
+  historyPointer: 1,
   recognizedIngredients: []
 } as const)
