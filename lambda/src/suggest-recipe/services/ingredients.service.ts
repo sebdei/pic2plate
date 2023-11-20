@@ -1,4 +1,3 @@
-import { Recipe } from '../dto/recipe.dto'
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
 
@@ -9,10 +8,7 @@ export async function getIngredientsFromImage(img: string) {
 
     Now consider the following TypeScript Interface for the JSON schema:
 
-    Array<{
-      amount: string
-      description: string
-    }>
+    string[];
 
     Write the basics section according to the Recipe schema.
     On the response, include only the JSON and no additional text.

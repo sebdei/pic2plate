@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="d-flex flex-column">
-      <div v-for="(step, stepIndex) in recipe.steps" :key="stepIndex" class="mb-5">
+      <div v-for="(step, stepIndex) in props.recipe.steps" :key="stepIndex" class="mb-5">
         <div class="d-flex align-items-center justify-content-center mb-3">
           <hr class="flex-grow-1" />
 
@@ -19,13 +19,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
-import { recipeStore } from '@/stores/recipeStore'
-const recipe = computed(() => recipeStore.recipe)
+const props = defineProps(['recipe'])
 </script>
 
 <style scoped></style>

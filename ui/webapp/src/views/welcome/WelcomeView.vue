@@ -7,44 +7,17 @@
     </p>
 
     <div class="d-flex align-items-center justify-content-around image-selection">
-      <ImageDataUrlLoader v-if="!isFetching" :max-height="1920" @change="submitImage" />
-      <LoadingIndicator v-else />
+      <NewRecipeCamera />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue'
-import LoadingIndicator from '@/components/loading/LoadingIndicator.vue'
+import NewRecipeCamera from '@/components/recipe/NewRecipeCamera.vue'
 
-import { SUGGEST_RECIPE_URL } from '@/urls'
-import { recipeStore } from '../../stores/recipeStore'
-import * as api from '@/service/api'
-
-import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
-const router = useRouter()
-const isFetching = ref(false)
-
-const submitImage = async (imageDataUrl: string) => {
-  recipeStore.imageUrl = imageDataUrl
-  isFetching.value = true
-
-  const data = { image_data_url: imageDataUrl }
-  const { error, recipe, recognizedIngredients } = await api.post(SUGGEST_RECIPE_URL, data)
-
-  if (error) {
-    router.push({ name: 'ErrorView' })
-  } else {
-    recipeStore.recipe = recipe
-    recipeStore.recognizedIngredients = recognizedIngredients
-    recipeStore.history = [...recipeStore.history, recipe]
-    router.push({ name: 'RecipeView' })
-  }
-}
 </script>
 
 <style scoped>

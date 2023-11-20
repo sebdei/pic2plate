@@ -1,5 +1,6 @@
 export interface Recipe {
   name: string
+  duration: string
 
   ingredients: Array<{
     amount: string

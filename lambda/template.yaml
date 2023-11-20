@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: AWS SAM Boilerplate Using TypeScript
 
@@ -6,7 +6,7 @@ Globals:
   Function:
     Timeout: 30
     MemorySize: 256
-    Runtime: nodejs18.x # modify the version according to your need
+    Runtime: nodejs18.x
   Api:
     Cors:
       AllowMethods: "'POST,OPTIONS'"
@@ -18,7 +18,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: app.handler
-      FunctionName: "Suggest Recipe"
+      FunctionName: 'Suggest Recipe'
       CodeUri: src/suggest-recipe/
       Environment:
         Variables:
@@ -29,9 +29,3 @@ Resources:
           Properties:
             Path: /suggest-recipe
             Method: post
-      # Events:
-      #   ApiEvent:
-      #     Type: Api
-      #     Properties:
-      #       Path: /test
-      #       Method: get

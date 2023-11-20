@@ -12,7 +12,6 @@ import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue';
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import { ref } from 'vue'
 
 const props = defineProps({
