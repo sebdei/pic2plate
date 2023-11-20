@@ -1,7 +1,7 @@
 <template>
   <RecipeLoading v-if="!recipe && imageUrl" />
 
-  <div v-else>
+  <div v-else-if="recipe">
     <div class="header">
       <RouterLink :to="{ name: 'WelcomeView' }">
         <button type="button" class="bg-transparent border-0 button-muted">
@@ -14,9 +14,9 @@
 
     <div class="recipe container-fluid d-flex flex-column pt-3 pb-5">
       <div class="mt-5 mb-2 mx-3">
-        <h3 class="name">
+        <h1>
           {{ recipe.name }}
-        </h3>
+        </h1>
 
         <span class="opacity-50">{{ recipe.duration }}</span>
       </div>
@@ -52,7 +52,7 @@
 
         <button
           :disabled="isFetching"
-          class="bg-transparent border-0 d-flex align-items-center button-muted"
+          class="bg-transparent border-0 d-flex align-items-center"
           type="button"
           @click="nextRecipe()"
         >
@@ -76,8 +76,8 @@ import { SUGGEST_RECIPE_URL } from '@/urls'
 import { recipeProposalStore } from '@/stores/recipeProposalStore'
 
 import { computed, ref, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRouter, RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -93,10 +93,12 @@ function previousRecipe() {
 }
 
 onMounted(() => {
-  if (imageUrl.value) {
+  if (recipeProposalStore.history.length) {
+    currentRecipeIndex.value = recipeProposalStore.history.length - 1
+  } else if (imageUrl.value) {
     nextRecipe()
   } else {
-    // sic! For now, we just redirect to the welcome view. In the future, we should create a view for creating a recipe with photo
+    // sic! For now, we just redirect to the welcome view. In the future, we should create a view for creating a recipe with photo i.e. similar to WelcomeView
     router.push({ name: 'WelcomeView' })
   }
 })
@@ -166,8 +168,8 @@ async function nextRecipe() {
   margin-top: -150px;
   z-index: 10;
   background-color: white;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .image {
@@ -177,10 +179,6 @@ async function nextRecipe() {
 
 .image-top {
   min-height: 35%;
-}
-
-.name {
-  font-size: 1.8rem;
 }
 
 .spinner-wrapper {

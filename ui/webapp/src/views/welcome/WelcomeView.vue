@@ -2,7 +2,7 @@
   <div class="container-fluid text-center">
     <img src="/img/pic2plate.png" class="mw-100 mb-4 p-5" />
 
-    <p class="mb-5 text-medium">
+    <p class="mb-5 fs-2">
       {{ t('welcome') }}
     </p>
 
@@ -27,10 +27,6 @@ const { t } = useI18n()
 
 .image img {
   height: 300px;
-}
-
-p {
-  font-size: 1.5rem;
 }
 </style>
 
