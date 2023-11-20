@@ -4,7 +4,7 @@
   font-weight: bold;
   src:
     local('Poppins-Bold'),
-    url(/fonts/poppins/Poppins-Bold.ttf) format('truetype');
+    url(/fonts/Poppins/Poppins-Bold.ttf) format('truetype');
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   font-weight: 400;
   src:
     local('Poppins-Medium'),
-    url(/fonts/poppins/Poppins-Medium.ttf) format('truetype');
+    url(/fonts/Poppins/Poppins-Medium.ttf) format('truetype');
 }
 
 @font-face {
@@ -22,5 +22,5 @@
   font-weight: lighter;
   src:
     local('Poppins-Light'),
-    url(/fonts/poppins/Poppins-Light.ttf) format('truetype');
+    url(/fonts/Poppins/Poppins-Light.ttf) format('truetype');
 }
