@@ -2,11 +2,11 @@
   <div class="container-fluid text-center">
     <img src="/img/pic2plate.png" class="mw-100 mb-4 p-5" />
 
-    <p class="mb-5 fs-2">
+    <p class="fs-2">
       {{ t('welcome') }}
     </p>
 
-    <div class="d-flex justify-content-around py-5">
+    <div class="d-flex justify-content-around py-4">
       <NewRecipeCamera />
     </div>
   </div>
