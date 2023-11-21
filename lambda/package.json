@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run watch & npm run sam",
+    "deploy": "rm -r .aws-sam && npm run build && cd .aws-sam/build/SuggestRecipe && zip -r function.zip . && aws lambda update-function-code --function-name pic2plate-suggest-recipe --zip-file fileb://function.zip",
     "build": "webpack-cli",
     "watch": "webpack-cli -w",
     "sam": "sam local start-api --host 0.0.0.0 --env-vars .env.json",
