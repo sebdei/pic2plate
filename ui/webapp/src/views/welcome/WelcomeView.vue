@@ -6,7 +6,7 @@
       {{ t('welcome') }}
     </p>
 
-    <div class="d-flex align-items-center justify-content-around image-selection">
+    <div class="d-flex justify-content-around py-5">
       <NewRecipeCamera />
     </div>
   </div>
@@ -20,23 +20,13 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 </script>
 
-<style scoped>
-.image-selection {
-  height: 120px;
-}
-
-.image img {
-  height: 300px;
-}
-</style>
-
 <i18n>
 {
   "de": {
-    "welcome": "Einfach ein Bild von Zutaten machen, um dein Rezept zu erstellen!"
+    "welcome": "Einfach ein Bild von deinen Zutaten machen, um ein Rezept zu erstellen!"
   },
   "en": {
-    "welcome": "Just take a picture of ingredients to get your recipe!"
+    "welcome": "Just take a picture of your ingredients to get a recipe!"
   }
 }
 </i18n>
