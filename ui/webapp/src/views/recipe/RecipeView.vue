@@ -4,8 +4,8 @@
   <div v-else-if="recipe">
     <div class="header">
       <RouterLink :to="{ name: 'WelcomeView' }">
-        <button type="button" class="bg-transparent border-0 button-muted">
-          <span class="material-icons md-40"> arrow_back_ios_new </span>
+        <button class="bg-transparent border-0 button-muted mx-2">
+          <MaterialSymbol icon="arrow_back_ios" fill="white" :size="40" />
         </button>
       </RouterLink>
 
@@ -36,18 +36,14 @@
         </div>
       </div>
 
-      <div class="my-4 mx-4 buttons d-flex justify-content-between">
+      <div class="my-4 mx-4 buttons d-flex justify-content-around">
         <button
           :disabled="recipeProposalStore.history.length - currentRecipeIndex < 1"
           class="bg-transparent border-0 d-flex align-items-center button-muted"
           type="button"
           @click="previousRecipe()"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" height="56" width="56" viewBox="0 -960 960 960">
-            <path
-              d="M280-200v-80h284q63 0 109.5-40T720-420q0-60-46.5-100T564-560H312l104 104-56 56-200-200 200-200 56 56-104 104h252q97 0 166.5 63T800-420q0 94-69.5 157T564-200H280Z"
-            />
-          </svg>
+          <MaterialSymbol icon="undo" :size="56" />
         </button>
 
         <button
@@ -56,7 +52,7 @@
           type="button"
           @click="nextRecipe()"
         >
-          <span :class="{ spinner: isFetching }" class="material-icons md-56"> autorenew </span>
+          <MaterialSymbol :class="{ spinner: isFetching }" icon="autorenew" :size="56" />
         </button>
       </div>
 
@@ -68,6 +64,7 @@
 </template>
 
 <script setup lang="ts">
+import MaterialSymbol from '@/components/icon/MaterialSymbol.vue'
 import RecipeLoading from './loading/RecipeLoading.vue'
 import StepList from './steps/StepList.vue'
 
@@ -154,10 +151,6 @@ async function nextRecipe() {
   top: 15px;
   z-index: 100;
 }
-.header button {
-  color: white;
-}
-
 .header img {
   width: 130%;
   transform: translateY(-50px);
@@ -194,11 +187,11 @@ button:disabled {
   opacity: 0.3;
 }
 
-.button-muted,
+/* .button-muted,
 .button-muted svg {
   color: var(--bs-secondary-color);
   fill: var(--bs-secondary-color);
-}
+} */
 
 .footer button {
   width: 100%;

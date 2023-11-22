@@ -5,7 +5,6 @@ import router from './router'
 import { registerSW } from 'virtual:pwa-register'
 
 import 'bootstrap/dist/css/bootstrap.css'
-import 'material-icons/iconfont/material-icons.css'
 
 import '@/assets/css/fonts/material-icons.css'
 import '@/assets/css/fonts/poppins.css'

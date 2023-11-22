@@ -2,7 +2,7 @@ import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue';
 <template>
   <div>
     <label for="file-upload" class="custom-file-upload">
-      <span class="material-icons md-64"> photo_camera </span>
+      <MaterialSymbolVue icon="photo_camera" :size="64" />
     </label>
 
     <input accept="image/*" id="file-upload" type="file" @change="loadImage" />
@@ -12,6 +12,8 @@ import ImageDataUrlLoader from '@/components/input/ImageDataUrlLoader.vue';
 </template>
 
 <script setup lang="ts">
+import MaterialSymbolVue from '@/components/icon/MaterialSymbol.vue'
+
 import { ref } from 'vue'
 
 const props = defineProps({

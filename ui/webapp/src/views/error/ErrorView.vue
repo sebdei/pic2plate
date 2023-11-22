@@ -8,17 +8,13 @@
       </p>
 
       <p class="fs-5">
-        {{ t('blame') }}
-      </p>
-
-      <p class="fs-5">
         {{ t('retry_or_photo') }}
       </p>
     </div>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-around">
       <RouterLink v-if="imageUrl" :to="{ name: 'RecipeView' }">
-        <span class="material-icons md-64"> replay </span>
+        <MaterialSymbol icon="replay" :size="64" />
       </RouterLink>
 
       <NewRecipeCamera />
@@ -27,6 +23,9 @@
 </template>
 
 <script setup lang="ts">
+import MaterialSymbol from '@/components/icon/MaterialSymbol.vue'
+import NewRecipeCamera from '@/components/recipe/NewRecipeCamera.vue'
+
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -35,22 +34,18 @@ const { t } = useI18n()
 
 import { recipeProposalStore } from '@/stores/recipeProposalStore'
 
-import NewRecipeCamera from '@/components/recipe/NewRecipeCamera.vue'
-
 const imageUrl = computed(() => recipeProposalStore.imageUrl)
 </script>
 
 <i18n>
 {
   "de": {
-    "blame": "Vermutlich hat GPT zu lange für die Antwort gebraucht.",
     "did_not_work": "Dies hat leider nicht funktioniert 😟",
-    "retry_or_photo": "Du kannst es entweder nochmal mit dem gleichen Foto versuchen oder ein anderes hochladen.",
+    "retry_or_photo": "Versuche es entweder nochmal oder lade ein anderes Foto hoch.",
   },
   "en": {
-    "blame": "Most likely, GPT took too long to respond.",
     "did_not_work": "This did not work 😟",
-    "retry_or_photo": "You can either try again with the same photo or upload a different one.",
+    "retry_or_photo": "Either try again or upload a different photo.",
   }
 }
 </i18n>
