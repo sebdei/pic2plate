@@ -1,13 +1,14 @@
+import 'reflect-metadata'
 import { APIGatewayEvent } from 'aws-lambda'
-import { RecipeRequest } from './dto/request.dto'
+import { RecipeDto } from './dto/recipe.dto'
+import { RecipeRequestDto } from './dto/request.dto'
+import { RecipeResponseDto } from './dto/response.dto'
 import { getIngredientsFromImage } from './services/ingredients.service'
 import { getRecipe } from './services/recipe.service'
-import { Recipe } from './dto/recipe.dto'
-import { writeInternalServerError, writeClientError, writeSuccess } from './utils/response'
-import { RecipeResponse } from './dto/response.dto'
+import { writeClientError, writeInternalServerError, writeSuccess } from './utils/response'
 
 export const handler = async (event: APIGatewayEvent) => {
-  const jsonBody: RecipeRequest = event?.body && JSON.parse(event.body)
+  const jsonBody: RecipeRequestDto = event?.body && JSON.parse(event.body)
 
   const { history, image_data_url, ingredients: bodyIngredients } = jsonBody
 
@@ -27,7 +28,10 @@ export const handler = async (event: APIGatewayEvent) => {
   }
 }
 
-export function createResponse(recipe: Recipe, imageIngredients: string[] | null): RecipeResponse {
+export function createResponse(
+  recipe: RecipeDto,
+  imageIngredients: string[] | null
+): RecipeResponseDto {
   return {
     image_ingredients: imageIngredients,
     recipe: recipe
