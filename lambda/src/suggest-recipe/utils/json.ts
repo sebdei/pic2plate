@@ -22,13 +22,13 @@ export async function validateAndTransform<T extends object, D>(
     return null
   }
 
-  const request = plainToInstance(target, dto)
-  const validationErrors = await validate(request)
+  const instance = plainToInstance(target, dto)
+  const validationErrors = await validate(instance)
 
   if (validationErrors.length > 0) {
     console.dir(validationErrors, { depth: null })
     return null
   }
 
-  return request
+  return instance
 }
