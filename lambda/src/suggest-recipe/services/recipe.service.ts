@@ -1,4 +1,4 @@
-import { Recipe } from '../dto/recipe.dto'
+import { Recipe, RecipeDto } from '../dto/recipe.dto'
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
 
@@ -39,6 +39,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
   const response = await chatCompletion('gpt-4-1106-preview', prompt)
 
   const jsonStr = response && JSONUtils.extractJson(response)
+  const json = jsonStr != null ? JSONUtils.parse<RecipeDto>(jsonStr) : null
 
-  return jsonStr != null ? JSONUtils.parse<Recipe>(jsonStr) : null
+  return JSONUtils.validateAndTransform<Recipe, RecipeDto>(Recipe, json)
 }

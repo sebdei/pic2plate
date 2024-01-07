@@ -1,6 +1,6 @@
-import { Recipe } from './recipe.dto'
+import { RecipeDto } from './recipe.dto'
 
-export interface RecipeResponse {
-  recipe: Recipe | null
+export interface RecipeResponseDto {
+  recipe: RecipeDto | null
   image_ingredients: string[] | null
 }

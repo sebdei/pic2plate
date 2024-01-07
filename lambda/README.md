@@ -15,3 +15,5 @@ https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-awscli.html#with-use
 # Start Local Development with AWS sam
 
 `sam local start-api --host 0.0.0.0 --env-vars .env.json`
+
+In favor to make sam work locally on your MacBook, you may need to export the DOCKER_HOST environment variable with the correct path. Use `docker context ls` and take the path which includes your username.
