@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "openai": "^4.16.2"
+    "openai": "^4.81.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.126",
