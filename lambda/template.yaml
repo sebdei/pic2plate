@@ -4,7 +4,7 @@ Description: AWS SAM Boilerplate Using TypeScript
 
 Globals:
   Function:
-    Timeout: 30
+    Timeout: 120
     MemorySize: 256
     Runtime: nodejs18.x
   Api:
