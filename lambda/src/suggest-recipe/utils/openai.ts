@@ -2,7 +2,7 @@ import OpenAI from 'openai'
 
 const openai = new OpenAI()
 
-type OpenAIModel = 'gpt-4-1106-preview' | 'gpt-4-vision-preview'
+type OpenAIModel = 'gpt-4o-mini'
 
 export async function chatCompletion(model: OpenAIModel, content: any, max_tokens = 750) {
   const completion = await openai.chat.completions.create({

@@ -36,7 +36,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
     Answer in german:
   `
 
-  const response = await chatCompletion('gpt-4-1106-preview', prompt)
+  const response = await chatCompletion('gpt-4o-mini', prompt)
 
   const jsonStr = response && JSONUtils.extractJson(response)
 

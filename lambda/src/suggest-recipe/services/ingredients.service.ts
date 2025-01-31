@@ -28,7 +28,7 @@ export async function getIngredientsFromImage(img: string) {
     }
   ]
 
-  const response = await chatCompletion('gpt-4-vision-preview', content)
+  const response = await chatCompletion('gpt-4o-mini', content)
 
   const jsonStr = response && JSONUtils.extractJson(response)
 
