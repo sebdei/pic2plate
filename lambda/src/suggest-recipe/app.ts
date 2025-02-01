@@ -14,7 +14,9 @@ export const handler = async (event: APIGatewayEvent) => {
   if (!image_data_url && !bodyIngredients) {
     return writeClientError()
   } else {
-    const imageIngredients = image_data_url ? await getIngredientsFromImage(image_data_url) : null
+    const imageIngredients = image_data_url
+      ? await getIngredientsFromImage(image_data_url)
+      : undefined
     const ingredients = [...(imageIngredients ?? []), ...(bodyIngredients ?? [])]
 
     const recipe = await getRecipe(ingredients, history)
@@ -27,7 +29,10 @@ export const handler = async (event: APIGatewayEvent) => {
   }
 }
 
-export function createResponse(recipe: Recipe, imageIngredients: string[] | null): RecipeResponse {
+export function createResponse(
+  recipe: Recipe,
+  imageIngredients: string[] | undefined
+): RecipeResponse {
   return {
     image_ingredients: imageIngredients,
     recipe: recipe

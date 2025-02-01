@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ajv": "^6.12.6",
     "openai": "^4.81.0"
   },
   "devDependencies": {
