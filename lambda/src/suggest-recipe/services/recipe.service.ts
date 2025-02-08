@@ -17,14 +17,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
     if (JSONUtils.isValidSchema<RecipeDto>(recipeDto, validator)) {
       result = recipeDto
     } else {
-      // Retry 2
-      recipeDto = await getInternal(ingredients, history)
-
-      if (JSONUtils.isValidSchema<RecipeDto>(recipeDto, validator)) {
-        result = recipeDto
-      } else {
-        result = null
-      }
+      result = null
     }
   }
 

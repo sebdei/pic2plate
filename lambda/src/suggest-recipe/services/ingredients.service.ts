@@ -18,14 +18,7 @@ export async function getIngredientsFromImage(img: string) {
     if (JSONUtils.isValidSchema<IngredientsDto>(ingredientsDto, validator)) {
       result = ingredientsDto
     } else {
-      // Retry 2
-      ingredientsDto = await getInternal(img)
-
-      if (JSONUtils.isValidSchema<IngredientsDto>(ingredientsDto, validator)) {
-        result = ingredientsDto
-      } else {
-        result = null
-      }
+      result = null
     }
   }
 
