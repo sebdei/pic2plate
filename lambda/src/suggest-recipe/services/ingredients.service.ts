@@ -1,7 +1,7 @@
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
 import { ChatCompletionContentPart } from 'openai/resources'
-import { IngredientsDto, IngredientsJsonSchema } from '../dto/ingredients.dto'
+import { IngredientsDto, IngredientsJsonSchema } from '../dto/ingredients/ingredients.dto'
 
 const validator = JSONUtils.getValidatorBySchema(IngredientsJsonSchema.schema!)
 
