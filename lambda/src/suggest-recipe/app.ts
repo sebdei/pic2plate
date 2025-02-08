@@ -2,7 +2,7 @@ import { APIGatewayEvent } from 'aws-lambda'
 import { RecipeRequest } from './dto/request.dto'
 import { getIngredientsFromImage } from './services/ingredients.service'
 import { getRecipe } from './services/recipe.service'
-import { Recipe } from './dto/recipe.dto'
+import { RecipeDto } from './dto/recipe.dto'
 import { writeInternalServerError, writeClientError, writeSuccess } from './utils/response'
 import { RecipeResponse } from './dto/response.dto'
 
@@ -21,7 +21,7 @@ export const handler = async (event: APIGatewayEvent) => {
 
     const recipe = await getRecipe(ingredients, history)
 
-    const responseDto = recipe != null ? createResponse(recipe, imageIngredients) : null
+    const responseDto = recipe != undefined ? createResponse(recipe, imageIngredients) : null
 
     return responseDto
       ? writeSuccess(responseDto, event)
@@ -30,11 +30,11 @@ export const handler = async (event: APIGatewayEvent) => {
 }
 
 export function createResponse(
-  recipe: Recipe,
+  recipe: RecipeDto,
   imageIngredients: string[] | undefined
 ): RecipeResponse {
   return {
     image_ingredients: imageIngredients,
-    recipe: recipe
+    recipe: recipe.recipe
   }
 }
