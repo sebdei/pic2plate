@@ -1,51 +1,8 @@
-import { ResponseFormatJSONSchema } from 'openai/resources'
-import { RecipeDto } from '../dto/recipe.dto'
+import { RecipeDto, RecipeJsonSchema } from '../dto/recipe.dto'
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
 
-const responseFormatSchema: ResponseFormatJSONSchema.JSONSchema = {
-  name: 'Recipe',
-  schema: {
-    type: 'object',
-    properties: {
-      recipe: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          duration: { type: 'string' },
-          ingredients: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                amount: { type: 'string' },
-                description: { type: 'string' }
-              },
-              required: ['amount', 'description'],
-              additionalProperties: false
-            }
-          },
-          steps: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                description: { type: 'string' }
-              },
-              required: ['description'],
-              additionalProperties: false
-            }
-          }
-        },
-        required: ['name', 'duration', 'ingredients', 'steps'],
-        additionalProperties: false
-      },
-      additionalProperties: false
-    },
-    additionalProperties: false
-  }
-}
-const validator = JSONUtils.getValidatorBySchema(responseFormatSchema.schema!)
+const validator = JSONUtils.getValidatorBySchema(RecipeJsonSchema.schema!)
 
 export async function getRecipe(ingredients: string[], history?: string[] | null) {
   let recipeDto = await getInternal(ingredients, history)
@@ -74,7 +31,7 @@ export async function getRecipe(ingredients: string[], history?: string[] | null
   console.log('Recipe')
   console.dir(result, { depth: null })
 
-  return result?.recipe
+  return result
 }
 
 async function getInternal(
@@ -98,6 +55,6 @@ async function getInternal(
     "
   `
 
-  const response = await chatCompletion('gpt-4o-mini', systemMessage, prompt, responseFormatSchema)
+  const response = await chatCompletion('gpt-4o-mini', systemMessage, prompt, RecipeJsonSchema)
   return response ? JSONUtils.parse<RecipeDto>(response) : undefined
 }

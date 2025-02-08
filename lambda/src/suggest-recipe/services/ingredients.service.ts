@@ -1,24 +1,9 @@
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
-import { ChatCompletionContentPart, ResponseFormatJSONSchema } from 'openai/resources'
-import { IngredientsDto } from '../dto/ingredients.dto'
+import { ChatCompletionContentPart } from 'openai/resources'
+import { IngredientsDto, IngredientsJsonSchema } from '../dto/ingredients.dto'
 
-const responseFormatSchema: ResponseFormatJSONSchema.JSONSchema = {
-  name: 'Ingredients',
-  schema: {
-    type: 'object',
-    properties: {
-      ingredients: {
-        type: 'array',
-        items: { type: 'string' },
-        additionalProperties: false
-      },
-      additionalProperties: false
-    },
-    additionalProperties: false
-  }
-}
-const validator = JSONUtils.getValidatorBySchema(responseFormatSchema.schema!)
+const validator = JSONUtils.getValidatorBySchema(IngredientsJsonSchema.schema!)
 
 export async function getIngredientsFromImage(img: string) {
   let ingredientsDto = await getInternal(img)
@@ -73,6 +58,11 @@ async function getInternal(img: string): Promise<IngredientsDto | null | undefin
     }
   ]
 
-  const response = await chatCompletion('gpt-4o-mini', systemMessage, content, responseFormatSchema)
+  const response = await chatCompletion(
+    'gpt-4o-mini',
+    systemMessage,
+    content,
+    IngredientsJsonSchema
+  )
   return response ? JSONUtils.parse<IngredientsDto>(response) : undefined
 }
