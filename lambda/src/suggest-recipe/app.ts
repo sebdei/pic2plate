@@ -9,15 +9,15 @@ import { RecipeResponse } from './dto/response.dto'
 export const handler = async (event: APIGatewayEvent) => {
   const jsonBody: RecipeRequest = event?.body && JSON.parse(event.body)
 
-  const { history, image_data_url, ingredients: bodyIngredients } = jsonBody
+  const { history, image_data_url, ingredients: userIngredients } = jsonBody
 
-  if (!image_data_url && !bodyIngredients) {
+  if (!image_data_url && !userIngredients) {
     return writeClientError()
   } else {
     const imageIngredients = image_data_url
       ? await getIngredientsFromImage(image_data_url)
       : undefined
-    const ingredients = [...(imageIngredients ?? []), ...(bodyIngredients ?? [])]
+    const ingredients = [...(imageIngredients ?? []), ...(userIngredients ?? [])]
 
     const recipe = await getRecipe(ingredients, history)
 
