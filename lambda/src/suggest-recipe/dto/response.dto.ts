@@ -1,4 +1,4 @@
-import { RecipeDto } from './recipe.dto'
+import { RecipeDto } from './recipe/recipe.dto'
 
 export interface RecipeResponse {
   recipe: RecipeDto['recipe'] | null

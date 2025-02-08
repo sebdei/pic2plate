@@ -1,4 +1,4 @@
-import { RecipeDto, RecipeJsonSchema } from '../dto/recipe.dto'
+import { RecipeDto, RecipeJsonSchema } from '../dto/recipe/recipe.dto'
 import * as JSONUtils from '../utils/json'
 import { chatCompletion } from '../utils/openai'
 

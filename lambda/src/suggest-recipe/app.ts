@@ -2,7 +2,7 @@ import { APIGatewayEvent } from 'aws-lambda'
 import { RecipeRequest } from './dto/request.dto'
 import { getIngredientsFromImage } from './services/ingredients.service'
 import { getRecipe } from './services/recipe.service'
-import { RecipeDto } from './dto/recipe.dto'
+import { RecipeDto } from './dto/recipe/recipe.dto'
 import { writeInternalServerError, writeClientError, writeSuccess } from './utils/response'
 import { RecipeResponse } from './dto/response.dto'
 
